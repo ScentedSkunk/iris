@@ -3,10 +3,10 @@
 <br />
 <div align="center">
 <p align="center">
-  <a href="https://github.com/mschf-dev/mfserv/#gh-light-mode-only">
+  <a href="https://github.com/mschf-dev/iris/#gh-light-mode-only">
     <img src="/docs/img/logo_light.png"/>
   </a>
-  <a href="https://github.com/mschf-dev/mfserv/#gh-dark-mode-only">
+  <a href="https://github.com/mschf-dev/iris/#gh-dark-mode-only">
     <img src="/docs/img/logo_dark.png"/>
   </a>
 </p>
@@ -42,7 +42,7 @@ A minimal, customizable prompt for bash
 </details>
 
 <!-- about -->
-## about mfserv
+## about iris
 
 iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater. Every detail is cusomizable to your liking to make it as lean or feature-packed as you like.
 <p align="right">(<a href="#top">back to top</a>)</p>

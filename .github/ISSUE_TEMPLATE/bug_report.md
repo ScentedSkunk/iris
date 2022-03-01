@@ -25,8 +25,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Please complete the following information:**
  - Server code name: [e.g. Buster]
- - Software bug is related to: [e.g. mfserv]
- - mflibs version: [e.g. 1.0.0]
+ - Software bug is related to: [e.g. iris-git]
+ - iris version: [e.g. 1.0.0]
 
 **Additional context**
 Add any other context about the problem here.
