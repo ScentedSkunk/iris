@@ -69,6 +69,10 @@ The following software will let you download the installer (which will set up th
   ```bash
   apt install wget
   ```
+  * git
+  ```bash
+  apt install git
+  ```
 
   <p align="right">(<a href="#top">back to top</a>)</p>
 
