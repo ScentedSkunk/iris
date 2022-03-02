@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: install.sh
-# @version: 0.0.83
+# @version: 0.0.84
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -33,7 +33,7 @@ install::check(){
 # @description: installs iris
 ################################################################################
 install::iris(){
-  declare _src_path; _src_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
+  declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
