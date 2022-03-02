@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.112
+# @version: 0.0.113
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -31,7 +31,7 @@
 [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
 _prompt::init(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
     [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
   fi
@@ -221,7 +221,7 @@ _iris::unknown(){
 ################################################################################
 _iris::disable(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
     [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
     declare _conf_file="${_iris_base_path}/config/iris.conf"
@@ -279,7 +279,7 @@ _iris::disable(){
 ################################################################################
 _iris::enable(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
     [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
     declare _conf_file="${_iris_base_path}/config/iris.conf"
