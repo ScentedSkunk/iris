@@ -2,13 +2,12 @@
 ################################################################################
 # <START METADATA>
 # @file_name: install.sh
-# @version: 0.0.66
+# @version: 0.0.67
 # @project_name: iris
 # @brief: installer for iris
 #
 # @save_tasks:
 #  automated_versioning: true
-#  automated_documentation: true
 #
 # @author: Jamie Dobbs (mschf)
 # @author_contact: jamie.dobbs@mschf.dev
