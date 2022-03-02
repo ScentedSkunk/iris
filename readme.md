@@ -53,7 +53,8 @@ iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater. Every 
 Install the latest version straight from your terminal:
 ```bash
 sudo su -
-bash <(wget -qO - https://mschf.dev/iris/install)
+git clone -q --depth=1 https://github.com/mschf-dev/iris "/opt/iris"
+/opt/iris/src/tools/install.sh
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
