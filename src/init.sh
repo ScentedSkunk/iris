@@ -2,13 +2,12 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.78
+# @version: 0.0.107
 # @project_name: iris
 # @brief: initializer for iris
 #
 # @save_tasks:
 #  automated_versioning: true
-#  automated_documentation: true
 #
 # @author: Jamie Dobbs (mschf)
 # @author_contact: jamie.dobbs@mschf.dev
@@ -29,11 +28,12 @@
 # @return_code: 4 unable to load custom module
 # shellcheck source=/dev/null
 ################################################################################
-_environment::init(){
-  [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
+[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
+_prompt::init(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
-    [[ -f "/opt/iris/src/config/iris.conf" ]] && . "/opt/iris/src/config/iris.conf"
+    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
   fi
   for _mod in "${_iris_official_modules[@]}"; do
     [[ -f "${_iris_base_path}/config/modules/${_mod}.conf" ]] && . "${_iris_base_path}/config/modules/${_mod}.conf"
@@ -98,13 +98,12 @@ _prompt::output(){
 _prompt::build(){
   declare _last_status="$?"; declare _gen_uh
   declare -gi _prompt_seg=1
-  if [[ ${_prompt_ssh:=true} == "true" && -n "${SSH_CLIENT}" ]]; then
-    if [[ ${_prompt_nerd_font:=false} == "true" ]]; then
-      _prompt::generate "$(printf %b "\\uf817")"
-    else
-      _prompt::generate "${_prompt_wrapper:0:1}ssh${_prompt_wrapper:1:1}|${_prompt_info_color:=254}"
-    fi
-  fi
+  for _mod in "${_iris_official_modules[@]}"; do
+    _module::init::test "_${_mod}::pre" && "_${_mod}::pre"
+  done
+  for _mod in "${_iris_custom_modules[@]}"; do
+    _module::init::test "_${_mod}::pre" && "_${_mod}::pre"
+  done
   declare _user_color="${_prompt_user_color:=178}"
   sudo -n uptime 2>&1 | grep -q "load" && _user_color="${_prompt_sudo_color:=215}"
   [[ ${_prompt_username:=true} == "true" ]] && _gen_uh="${USER}"
@@ -112,15 +111,14 @@ _prompt::build(){
   _prompt::generate "${_gen_uh}|${_user_color}"
   [[ ${_prompt_dir:=true} == "true" ]] && _prompt::generate "${_prompt_wrapper:0:1}$(pwd | sed "s|^${HOME}|~|")${_prompt_wrapper:1:1}|${_prompt_info_color:=254}"
   for _mod in "${_iris_official_modules[@]}"; do
-    _module::init::test "_${_mod}::init" && "_${_mod}::init"
+    _module::init::test "_${_mod}::post" && "_${_mod}::post"
   done
-  for mod in "${_iris_custom_modules[@]}"; do
-    _module::init::test "_${_mod}::init" && "_${_mod}::init"
+  for _mod in "${_iris_custom_modules[@]}"; do
+    _module::init::test "_${_mod}::post" && "_${_mod}::post"
   done
-  unset _mod
   [[ ${_prompt_display_error:=true} == "true" ]] && [[ "${_last_status}" -ne 0 ]] && _prompt::generate "${_prompt_wrapper:0:1}${_last_status}${_prompt_wrapper:1:1} |${_prompt_fail_color:=203}"
-    if [[ -n "${_prompt_information}" ]]; then
-    if [[ "${_last_status}" -ne 0 ]]; then
+    if [[ -n ${_prompt_information} ]]; then
+    if [[ ${_last_status} -ne 0 ]]; then
       _prompt_status_color=${_prompt_fail_color:=203}
     else
       _prompt_status_color=${_prompt_success_color:=77}
@@ -133,7 +131,7 @@ _prompt::build(){
     _prompt_information+="$(_prompt::color ${_prompt_status_color}) ${_prompt_new_line}${_prompt_input_symbol}\[\e[0m\]"
   fi
   PS1="${_prompt_information} "
-  unset _prompt_information _prompt_seg
+  unset _prompt_information _prompt_seg _mod
 }
 
 ################################################################################
@@ -146,7 +144,7 @@ _prompt::generate(){
   read -ra _params <<< "$1"
   IFS="${OLD_IFS}"
   declare _separator=""
-  [[ "${_prompt_seg}" -gt 1 ]] && _separator="${_prompt_seperator}"
+  [[ ${_prompt_seg} -gt 1 ]] && _separator="${_prompt_seperator}"
   _prompt_information+="${_separator}$(_prompt::color "${_params[1]}")${_params[0]}\[\e[0m\]"
   (( _prompt_seg += 1 ))
 }
@@ -154,5 +152,9 @@ _prompt::generate(){
 ################################################################################
 # @description: calls functions in required order
 ################################################################################
-_environment::init
-_prompt::output _prompt::build
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  _prompt::init
+  _prompt::output _prompt::build
+else
+  _iris::args "$@"
+fi
