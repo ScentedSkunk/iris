@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.108
+# @version: 0.0.109
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -158,6 +158,7 @@ _iris::args(){
     case "${1}" in
       --help)       _iris::help;;
       --version)    _iris::version;;
+      *)            _iris::unknown "${1}";;
     esac
   else
     _iris::help
@@ -195,6 +196,13 @@ _iris::version(){
   declare _iris_version
   _iris_version="$(git describe --tags --abbrev=0)"
   printf -- "iris %s\n" "${_iris_version}"
+}
+
+################################################################################
+# @description: outputs unknown command
+################################################################################
+_iris::unknown(){
+  printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
 }
 
 ################################################################################
