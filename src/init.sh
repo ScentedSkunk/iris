@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.116
+# @version: 0.0.117
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -160,6 +160,7 @@ _iris::args(){
       --enable*)    _iris::enable "${2,,}" "${3,,}";;
       --help)       _iris::help;;
       --modules)    _iris::modules;;
+      --uninstall)  "$(dirname "$(realpath "${BASH_SOURCE[0]}")")/tools/uninstall.sh";;
       --version)    _iris::version;;
       *)            _iris::unknown "${1}";;
     esac
