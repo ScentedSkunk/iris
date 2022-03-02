@@ -230,7 +230,11 @@ _iris::disable(){
   case "$1" in
     o)
       if printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
-        _iris_official_modules=( "${_iris_official_modules[@]/$2}" )
+        for i in "${!_iris_official_modules[@]}"; do
+          if [[ ${_iris_official_modules[i]} = "$2" ]]; then
+            unset '_iris_official_modules[i]'
+          fi
+        done
         for _mod in "${_iris_official_modules[@]}"; do
           [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
         done
@@ -243,7 +247,11 @@ _iris::disable(){
       fi;;
     c)
       if printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
-        _iris_custom_modules=( "${_iris_custom_modules[@]/$2}" )
+        for i in "${!_iris_custom_modules[@]}"; do
+          if [[ ${_iris_custom_modules[i]} = "$2" ]]; then
+            unset '_iris_custom_modules[i]'
+          fi
+        done
         for _mod in "${_iris_custom_modules[@]}"; do
           [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
         done
