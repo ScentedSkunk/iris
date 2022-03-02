@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: install.sh
-# @version: 0.0.80
+# @version: 0.0.83
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -33,8 +33,7 @@ install::check(){
 # @description: installs iris
 ################################################################################
 install::iris(){
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
-  declare _opt_base_path="${_iris_base_path%/*}"
+  declare _src_path; _src_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
@@ -42,18 +41,19 @@ install::iris(){
       homedir=$(echo "${user}" | cut -f6 -d:)
       group=$(echo "${user}" | cut -f4 -d:)
       [[ -f "${homedir}/.bashrc" ]] && mv -f "${homedir}/.bashrc" "${homedir}/.bashrc.bak"
-      cp -f "${_iris_base_path%/*}/config/.bashrc" "${homedir}/.bashrc"
+      cp -f "${_src_path}/config/.bashrc" "${homedir}/.bashrc"
       mkdir -p "${homedir}/.config/iris/"
-      cp -f "${_iris_base_path%/*}/config/iris.conf" "${homedir}/.config/iris/"
+      cp -f "${_src_path}/config/iris.conf" "${homedir}/.config/iris/"
       chown "${username}":"${group}" "${homedir}/.bashrc"
       chown -R "${username}":"${group}" "${homedir}/.config/iris"
     fi
   done < <(getent passwd)
   mkdir -p "/etc/skel/.config/iris/"
-  cp -f "${_iris_base_path%/*}/config/iris.conf" "/etc/skel/.config/iris/"
+  cp -f "${_src_path}/config/iris.conf" "/etc/skel/.config/iris/"
   cp -f "/etc/skel/.bashrc" "/etc/skel/.bashrc.bak"
-  cp -f "${_iris_base_path%/*}/config/.bashrc" "/etc/skel/"
-  chmod -R 755 "${_opt_base_path%/*}"
+  cp -f "${_src_path}/config/.bashrc" "/etc/skel/"
+  chmod -R 755 "${_src_path%/*}"
+  ln -s "${_src_path}/init.sh" "/usr/local/bin/iris"
   exec bash
 }
 
