@@ -1,6 +1,5 @@
 logs
-docs/test*
-docs/tools*
+docs/*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
