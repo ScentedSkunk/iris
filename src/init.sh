@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.73
+# @version: 0.0.77
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -33,8 +33,7 @@ _environment::init(){
   [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
-    [[ -f "/opt/iris/src/config/iris.conf" ]] && . "/opt/iris/src/config/iris.conf"
-  else
+    [[ -f "/opt/iris/src/config/iris.conf" ]] && . "/opt/iris/src/config/iris.conf" && continue
     printf -- "error[2]: unable to load default config file\n" && return 2
   fi
   for _mod in "${_iris_official_modules[@]}"; do
