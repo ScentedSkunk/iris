@@ -168,7 +168,7 @@ _iris::args(){
 ################################################################################
 _iris::help(){
   declare _iris_version
-  _iris_version="$(grep -m1 '@version: ' "$(realpath -s "${BASH_SOURCE[0]}")"  | cut -d " " -f3)"
+  _iris_version="$(git describe --tags --abbrev=0)"
   printf -- "iris %s
 usage: iris [--disable <module>] [--enable <module>] [--help]
             [--modules] [--uninstall] [--upgrade] [--version]
