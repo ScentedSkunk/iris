@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.107
+# @version: 0.0.108
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -149,6 +149,10 @@ _prompt::generate(){
   (( _prompt_seg += 1 ))
 }
 
+################################################################################
+# @description: parses arguments
+# @arg $1: function to run
+################################################################################
 _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
@@ -159,6 +163,9 @@ _iris::args(){
   fi
 }
 
+################################################################################
+# @description: outputs help information
+################################################################################
 _iris::help(){
   declare _iris_version
   _iris_version="$(grep -m1 '@version: ' "$(realpath -s "${BASH_SOURCE[0]}")"  | cut -d " " -f3)"
