@@ -157,6 +157,7 @@ _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
       --help)       _iris::help;;
+      --version)    _iris::version;;
     esac
   else
     _iris::help
@@ -185,7 +186,15 @@ options:
   --uninstall              uninstalls iris
   --upgrade                upgrades iris to latest version
   --version                outputs iris version\n\n" "${_iris_version}"
+}
 
+################################################################################
+# @description: outputs version
+################################################################################
+_iris::version(){
+  declare _iris_version
+  _iris_version="$(git describe --tags --abbrev=0)"
+  printf -- "iris %s\n" "${_iris_version}"
 }
 
 ################################################################################
