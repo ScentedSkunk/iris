@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: git.module.sh
-# @version: 0.0.19
+# @version: 0.0.20
 # @project_name: iris
 # @brief: git module for iris
 #
@@ -23,7 +23,7 @@
 # @description: generates git responses
 # @noargs
 ################################################################################
-_git::init(){
+_git::post(){
   if git status --porcelain &> /dev/null; then
     declare _unsafe_ref; _unsafe_ref=$(command git symbolic-ref -q HEAD 2> /dev/null)
     declare _stripped_ref="${_unsafe_ref##refs/heads/}"

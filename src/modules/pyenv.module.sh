@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: pyenv.module.sh
-# @version: 0.0.21
+# @version: 0.0.22
 # @project_name: iris
 # @brief: pyenv module for iris
 #
@@ -23,7 +23,7 @@
 # @description: generates pyenv responses
 # @noargs
 ################################################################################
-_pyenv::init(){
+_pyenv::post(){
   if [[ -n ${VIRTUAL_ENV} ]]; then
     declare _pyenv_version; _pyenv_version="$(python --version | cut -d " " -f2)"
     [[ -z "${_pyenv_version}" ]] && _pyenv_version=$(python3 --version | cut -d " " -f2)
