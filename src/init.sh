@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.111
+# @version: 0.0.112
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -157,6 +157,7 @@ _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
       --disable*)   _iris::disable "${2,,}" "${3,,}";;
+      --enable*)    _iris::enable "${2,,}" "${3,,}";;
       --help)       _iris::help;;
       --version)    _iris::version;;
       *)            _iris::unknown "${1}";;
@@ -265,6 +266,56 @@ _iris::disable(){
     *) 
       printf -- "iris: please specifiy o or c\n"
       return 6;;
+  esac
+}
+
+################################################################################
+# @description: enables provided module
+# @arg $1: o|c
+# @arg $2: module
+# @return_code: 9 o|c not specified
+# @return_code: 10 module already enabled
+# @return_code: 11 module already enabled
+################################################################################
+_iris::enable(){
+  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  if [[ ${_iris_per_user:="false"} != "true" ]]; then
+    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
+    declare _conf_file="${_iris_base_path}/config/iris.conf"
+  else
+    declare _conf_file="${HOME}/.config/iris/iris.conf"
+  fi
+  case "$1" in
+    o)
+      if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
+        _iris_official_modules+=( "${2}" )
+        for _mod in "${_iris_official_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_official_modules.*)/{s//_iris_official_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module enabled\n" "$2"
+        return
+      else
+        printf -- "iris: '%s' module is already enabled\n" "$2"
+        return 10
+      fi;;
+    c)
+      if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
+        _iris_custom_modules+=( "${2}" )
+        for _mod in "${_iris_custom_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_custom_modules.*)/{s//_iris_custom_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module enabled\n" "$2"
+        return
+      else
+        printf -- "iris: '%s' module is already enabled\n" "$2"
+        return 11
+      fi;;
+    *) 
+      printf -- "iris: please specifiy o or c\n"
+      return 9;;
   esac
 }
 
