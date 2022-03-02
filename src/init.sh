@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.114
+# @version: 0.0.115
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -159,6 +159,7 @@ _iris::args(){
       --disable*)   _iris::disable "${2,,}" "${3,,}";;
       --enable*)    _iris::enable "${2,,}" "${3,,}";;
       --help)       _iris::help;;
+      --modules)    _iris::modules;;
       --version)    _iris::version;;
       *)            _iris::unknown "${1}";;
     esac
@@ -267,6 +268,53 @@ _iris::disable(){
       printf -- "iris: please specifiy o or c\n"
       return 6;;
   esac
+}
+
+################################################################################
+# @description: lists users module status
+################################################################################
+_iris::modules(){
+  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+  [[ $_iris_base_path == "/usr/local/bin/iris" ]] &&
+  if [[ ${_iris_per_user:="false"} != "true" ]]; then
+    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
+    declare _conf_file="${_iris_base_path}/config/iris.conf"
+  else
+    declare _conf_file="${HOME}/.config/iris/iris.conf"
+  fi
+  declare _enabled_o_mods _enabled_c_mods
+  printf -v _enabled_o_mods '%s, ' "${_iris_official_modules[@]}"
+  printf -v _enabled_c_mods '%s, ' "${_iris_custom_modules[@]}"
+  [[ ${_enabled_o_mods} == ", " ]] && _enabled_o_mods=none
+  [[ ${_enabled_c_mods} == ", " ]] && _enabled_c_mods=none
+  [[ ${_enabled_o_mods} != "none" ]] && _enabled_o_mods=${_enabled_o_mods%,*}
+  [[ ${_enabled_c_mods} != "none" ]] && _enabled_c_mods=${_enabled_c_mods%,*}
+  for _mods in "${_iris_base_path}/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+        _iris_disabled_o_modules+=( "$_mods" )
+    fi
+  done
+  for _mods in "${_iris_base_path}/custom/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+        _iris_disabled_c_modules+=( "$_mods" )
+    fi
+  done
+  printf -v _disabled_o_mods '%s, ' "${_iris_disabled_o_modules[@]}"
+  printf -v _disabled_c_mods '%s, ' "${_iris_disabled_c_modules[@]}"
+  [[ ${_disabled_o_mods} == ", " ]] && _disabled_o_mods=none
+  [[ ${_disabled_c_mods} == ", " ]] && _disabled_c_mods=none
+  [[ ${_disabled_o_mods} != "none" ]] && _disabled_o_mods=${_disabled_o_mods%,*}
+  [[ ${_disabled_c_mods} != "none" ]] && _disabled_c_mods=${_disabled_c_mods%,*}
+  printf -- "iris: %s modules\n
+-- enabled --
+official modules: %s
+custom modules: %s\n
+-- disabled --
+official modules: %s
+custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_disabled_o_mods}" "${_disabled_c_mods}"
 }
 
 ################################################################################
