@@ -149,6 +149,38 @@ _prompt::generate(){
   (( _prompt_seg += 1 ))
 }
 
+_iris::args(){
+  if [[ $# -gt 0 ]]; then
+    case "${1}" in
+      --help)       _iris::help;;
+    esac
+  else
+    _iris::help
+  fi
+}
+
+_iris::help(){
+  declare _iris_version
+  _iris_version="$(grep -m1 '@version: ' "$(realpath -s "${BASH_SOURCE[0]}")"  | cut -d " " -f3)"
+  printf -- "iris %s
+usage: iris [--disable <module>] [--enable <module>] [--help]
+            [--modules] [--uninstall] [--upgrade] [--version]
+
+iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
+Every detail is cusomizable to your liking to make it as lean or feature-packed
+as you like.
+
+options:
+  --disable [module]       disables the provided module
+  --enable  [module]       enables the provided module
+  --help                   displays this help
+  --modules                lists all installed modules
+  --uninstall              uninstalls iris
+  --upgrade                upgrades iris to latest version
+  --version                outputs iris version\n\n" "${_iris_version}"
+
+}
+
 ################################################################################
 # @description: calls functions in required order
 ################################################################################
