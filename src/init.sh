@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.113
+# @version: 0.0.114
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -232,7 +232,7 @@ _iris::disable(){
     o)
       if printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
         for i in "${!_iris_official_modules[@]}"; do
-          if [[ ${_iris_official_modules[i]} = "$2" ]]; then
+          if [[ ${_iris_official_modules[i]} == "$2" ]]; then
             unset '_iris_official_modules[i]'
           fi
         done
@@ -249,7 +249,7 @@ _iris::disable(){
     c)
       if printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
         for i in "${!_iris_custom_modules[@]}"; do
-          if [[ ${_iris_custom_modules[i]} = "$2" ]]; then
+          if [[ ${_iris_custom_modules[i]} == "$2" ]]; then
             unset '_iris_custom_modules[i]'
           fi
         done
