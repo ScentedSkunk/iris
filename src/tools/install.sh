@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: install.sh
-# @version: 0.0.62
+# @version: 0.0.63
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -28,7 +28,7 @@ install::check(){
 }
 
 install::iris(){
-  git clone --depth=1 https://github.com/mschf-dev/iris "/opt/" || { printf -- "error[5]: unable to clone repo\n" && return 5; }
+  git clone --depth=1 https://github.com/mschf-dev/iris "/opt/iris" || { printf -- "error[5]: unable to clone repo\n" && return 5; }
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
