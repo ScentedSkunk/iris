@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.115
+# @version: 0.0.116
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -169,50 +169,6 @@ _iris::args(){
 }
 
 ################################################################################
-# @description: outputs help information
-################################################################################
-_iris::help(){
-  declare _iris_version
-  _iris_version="$(git describe --tags --abbrev=0)"
-  printf -- "iris %s
-usage: iris [--disable [o|c] <module> ] [--enable [o|c] <module>] [--help]
-            [--modules] [--uninstall] [--upgrade] [--version]
-
-iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
-Every detail is cusomizable to your liking to make it as lean or feature-packed
-as you like.
-
-options:
-  --disable [o|c] [module]    disables the provided module [o=official|c=custom]
-  --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
-  --help                      displays this help
-  --modules                   lists all installed modules
-  --uninstall                 uninstalls iris
-  --upgrade                   upgrades iris to latest version
-  --version                   outputs iris version\n\n" "${_iris_version}"
-  return
-}
-
-################################################################################
-# @description: outputs version
-################################################################################
-_iris::version(){
-  declare _iris_version
-  _iris_version="$(git describe --tags --abbrev=0)"
-  printf -- "iris %s\n" "${_iris_version}"
-}
-
-################################################################################
-# @description: outputs unknown command
-# @arg $1: incorrect command
-# @return_code: 5 command not found
-################################################################################
-_iris::unknown(){
-  printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
-  return 5
-}
-
-################################################################################
 # @description: disables provided module
 # @arg $1: o|c
 # @arg $2: module
@@ -271,53 +227,6 @@ _iris::disable(){
 }
 
 ################################################################################
-# @description: lists users module status
-################################################################################
-_iris::modules(){
-  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-  [[ $_iris_base_path == "/usr/local/bin/iris" ]] &&
-  if [[ ${_iris_per_user:="false"} != "true" ]]; then
-    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
-    declare _conf_file="${_iris_base_path}/config/iris.conf"
-  else
-    declare _conf_file="${HOME}/.config/iris/iris.conf"
-  fi
-  declare _enabled_o_mods _enabled_c_mods
-  printf -v _enabled_o_mods '%s, ' "${_iris_official_modules[@]}"
-  printf -v _enabled_c_mods '%s, ' "${_iris_custom_modules[@]}"
-  [[ ${_enabled_o_mods} == ", " ]] && _enabled_o_mods=none
-  [[ ${_enabled_c_mods} == ", " ]] && _enabled_c_mods=none
-  [[ ${_enabled_o_mods} != "none" ]] && _enabled_o_mods=${_enabled_o_mods%,*}
-  [[ ${_enabled_c_mods} != "none" ]] && _enabled_c_mods=${_enabled_c_mods%,*}
-  for _mods in "${_iris_base_path}/modules/"*; do
-    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
-    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
-        _iris_disabled_o_modules+=( "$_mods" )
-    fi
-  done
-  for _mods in "${_iris_base_path}/custom/modules/"*; do
-    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
-    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
-        _iris_disabled_c_modules+=( "$_mods" )
-    fi
-  done
-  printf -v _disabled_o_mods '%s, ' "${_iris_disabled_o_modules[@]}"
-  printf -v _disabled_c_mods '%s, ' "${_iris_disabled_c_modules[@]}"
-  [[ ${_disabled_o_mods} == ", " ]] && _disabled_o_mods=none
-  [[ ${_disabled_c_mods} == ", " ]] && _disabled_c_mods=none
-  [[ ${_disabled_o_mods} != "none" ]] && _disabled_o_mods=${_disabled_o_mods%,*}
-  [[ ${_disabled_c_mods} != "none" ]] && _disabled_c_mods=${_disabled_c_mods%,*}
-  printf -- "iris: %s modules\n
--- enabled --
-official modules: %s
-custom modules: %s\n
--- disabled --
-official modules: %s
-custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_disabled_o_mods}" "${_disabled_c_mods}"
-}
-
-################################################################################
 # @description: enables provided module
 # @arg $1: o|c
 # @arg $2: module
@@ -365,6 +274,97 @@ _iris::enable(){
       printf -- "iris: please specifiy o or c\n"
       return 9;;
   esac
+}
+
+################################################################################
+# @description: outputs help information
+################################################################################
+_iris::help(){
+  declare _iris_version
+  _iris_version="$(git describe --tags --abbrev=0)"
+  printf -- "iris %s
+usage: iris [--disable [o|c] <module> ] [--enable [o|c] <module>] [--help]
+            [--modules] [--uninstall] [--upgrade] [--version]
+
+iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
+Every detail is cusomizable to your liking to make it as lean or feature-packed
+as you like.
+
+options:
+  --disable [o|c] [module]    disables the provided module [o=official|c=custom]
+  --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
+  --help                      displays this help
+  --modules                   lists all installed modules
+  --uninstall                 uninstalls iris
+  --upgrade                   upgrades iris to latest version
+  --version                   outputs iris version\n\n" "${_iris_version}"
+  return
+}
+
+################################################################################
+# @description: lists users module status
+################################################################################
+_iris::modules(){
+  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+  [[ $_iris_base_path == "/usr/local/bin/iris" ]] &&
+  if [[ ${_iris_per_user:="false"} != "true" ]]; then
+    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
+    declare _conf_file="${_iris_base_path}/config/iris.conf"
+  else
+    declare _conf_file="${HOME}/.config/iris/iris.conf"
+  fi
+  declare _enabled_o_mods _enabled_c_mods
+  printf -v _enabled_o_mods '%s, ' "${_iris_official_modules[@]}"
+  printf -v _enabled_c_mods '%s, ' "${_iris_custom_modules[@]}"
+  [[ ${_enabled_o_mods} == ", " ]] && _enabled_o_mods=none
+  [[ ${_enabled_c_mods} == ", " ]] && _enabled_c_mods=none
+  [[ ${_enabled_o_mods} != "none" ]] && _enabled_o_mods=${_enabled_o_mods%,*}
+  [[ ${_enabled_c_mods} != "none" ]] && _enabled_c_mods=${_enabled_c_mods%,*}
+  for _mods in "${_iris_base_path}/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+        _iris_disabled_o_modules+=( "$_mods" )
+    fi
+  done
+  for _mods in "${_iris_base_path}/custom/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+        _iris_disabled_c_modules+=( "$_mods" )
+    fi
+  done
+  printf -v _disabled_o_mods '%s, ' "${_iris_disabled_o_modules[@]}"
+  printf -v _disabled_c_mods '%s, ' "${_iris_disabled_c_modules[@]}"
+  [[ ${_disabled_o_mods} == ", " ]] && _disabled_o_mods=none
+  [[ ${_disabled_c_mods} == ", " ]] && _disabled_c_mods=none
+  [[ ${_disabled_o_mods} != "none" ]] && _disabled_o_mods=${_disabled_o_mods%,*}
+  [[ ${_disabled_c_mods} != "none" ]] && _disabled_c_mods=${_disabled_c_mods%,*}
+  printf -- "iris: %s modules\n
+-- enabled --
+official modules: %s
+custom modules: %s\n
+-- disabled --
+official modules: %s
+custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_disabled_o_mods}" "${_disabled_c_mods}"
+}
+
+################################################################################
+# @description: outputs version
+################################################################################
+_iris::version(){
+  declare _iris_version
+  _iris_version="$(git describe --tags --abbrev=0)"
+  printf -- "iris %s\n" "${_iris_version}"
+}
+
+################################################################################
+# @description: outputs unknown command
+# @arg $1: incorrect command
+# @return_code: 5 command not found
+################################################################################
+_iris::unknown(){
+  printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
+  return 5
 }
 
 ################################################################################
