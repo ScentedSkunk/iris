@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.109
+# @version: 0.0.110
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -200,6 +200,8 @@ _iris::version(){
 
 ################################################################################
 # @description: outputs unknown command
+# @arg $1: incorrect command
+# @return_code: 5 command not found
 ################################################################################
 _iris::unknown(){
   printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
