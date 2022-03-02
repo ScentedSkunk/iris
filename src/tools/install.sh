@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: install.sh
-# @version: 0.0.67
+# @version: 0.0.80
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -19,33 +19,46 @@
 # shellcheck disable=2154
 ################################################################################
 
+################################################################################
+# @description: checks for sudo and bash version
+# @return_code: 1 user is not root/sudo
+# @return code: 2 bash version mismatch
+################################################################################
 install::check(){
-  [[ $(whoami) != "root" ]] && printf -- "error[1]: installer requires root/sudo\n" && return 1
-  [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[2]: iris requires a bash version of 4 or greater\n" && return 2
-  hash git &>/dev/null || { printf -- "error[3]: git is not installed\n" && return 3; }
-  [[ -d "/opt/iris" ]] && printf -- "error[4]: iris is already installed\n" && return 4
+  [[ $(whoami) != "root" ]] && printf -- "error[1]: installer requires root/sudo\n" && exit 1
+  [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[2]: iris requires a bash version of 4 or greater\n" && exit 2
 }
 
+################################################################################
+# @description: installs iris
+################################################################################
 install::iris(){
-  git clone -q --depth=1 https://github.com/mschf-dev/iris "/opt/iris" || { printf -- "error[5]: unable to clone repo\n" && return 5; }
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  declare _opt_base_path="${_iris_base_path%/*}"
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
       username=$(echo "${user}" | cut -f1 -d:)
       homedir=$(echo "${user}" | cut -f6 -d:)
       group=$(echo "${user}" | cut -f4 -d:)
-      if [[ -f "${homedir}/.bashrc" ]]; then
-        mv -f "${homedir}/.bashrc" "${homedir}/.bashrc.bak"
-        cp -f "/opt/iris/src/config/.bashrc" "${homedir}/.bashrc"
-        chown "${username}":"${group}" "${homedir}/.bashrc"
-        mkdir -p "${homedir}/.config/iris/"
-        cp -f "/opt/iris/src/config/iris.conf" "${homedir}/.config/iris/"
-      fi
+      [[ -f "${homedir}/.bashrc" ]] && mv -f "${homedir}/.bashrc" "${homedir}/.bashrc.bak"
+      cp -f "${_iris_base_path%/*}/config/.bashrc" "${homedir}/.bashrc"
+      mkdir -p "${homedir}/.config/iris/"
+      cp -f "${_iris_base_path%/*}/config/iris.conf" "${homedir}/.config/iris/"
+      chown "${username}":"${group}" "${homedir}/.bashrc"
+      chown -R "${username}":"${group}" "${homedir}/.config/iris"
     fi
   done < <(getent passwd)
-  chmod -R 755 /opt/iris
+  mkdir -p "/etc/skel/.config/iris/"
+  cp -f "${_iris_base_path%/*}/config/iris.conf" "/etc/skel/.config/iris/"
+  cp -f "/etc/skel/.bashrc" "/etc/skel/.bashrc.bak"
+  cp -f "${_iris_base_path%/*}/config/.bashrc" "/etc/skel/"
+  chmod -R 755 "${_opt_base_path%/*}"
   exec bash
 }
 
+################################################################################
+# @description: calls functions in required order
+################################################################################
 install::check
 install::iris
