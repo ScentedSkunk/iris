@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.110
+# @version: 0.0.111
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -156,6 +156,7 @@ _prompt::generate(){
 _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
+      --disable*)   _iris::disable "${2,,}" "${3,,}";;
       --help)       _iris::help;;
       --version)    _iris::version;;
       *)            _iris::unknown "${1}";;
@@ -172,7 +173,7 @@ _iris::help(){
   declare _iris_version
   _iris_version="$(git describe --tags --abbrev=0)"
   printf -- "iris %s
-usage: iris [--disable <module>] [--enable <module>] [--help]
+usage: iris [--disable [o|c] <module> ] [--enable [o|c] <module>] [--help]
             [--modules] [--uninstall] [--upgrade] [--version]
 
 iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
@@ -180,13 +181,14 @@ Every detail is cusomizable to your liking to make it as lean or feature-packed
 as you like.
 
 options:
-  --disable [module]       disables the provided module
-  --enable  [module]       enables the provided module
-  --help                   displays this help
-  --modules                lists all installed modules
-  --uninstall              uninstalls iris
-  --upgrade                upgrades iris to latest version
-  --version                outputs iris version\n\n" "${_iris_version}"
+  --disable [o|c] [module]    disables the provided module [o=official|c=custom]
+  --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
+  --help                      displays this help
+  --modules                   lists all installed modules
+  --uninstall                 uninstalls iris
+  --upgrade                   upgrades iris to latest version
+  --version                   outputs iris version\n\n" "${_iris_version}"
+  return
 }
 
 ################################################################################
@@ -205,6 +207,57 @@ _iris::version(){
 ################################################################################
 _iris::unknown(){
   printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
+  return 5
+}
+
+################################################################################
+# @description: disables provided module
+# @arg $1: o|c
+# @arg $2: module
+# @return_code: 6 o|c not specified
+# @return_code: 7 module not enabled
+# @return_code: 8 module not enabled
+################################################################################
+_iris::disable(){
+  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
+  if [[ ${_iris_per_user:="false"} != "true" ]]; then
+    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
+    declare _conf_file="${_iris_base_path}/config/iris.conf"
+  else
+    declare _conf_file="${HOME}/.config/iris/iris.conf"
+  fi
+  case "$1" in
+    o)
+      if printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
+        _iris_official_modules=( "${_iris_official_modules[@]/$2}" )
+        for _mod in "${_iris_official_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_official_modules.*)/{s//_iris_official_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module disabled\n" "$2"
+        return
+      else
+        printf -- "iris: '%s' module is not enabled\n" "$2"
+        return 7
+      fi;;
+    c)
+      if printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
+        _iris_custom_modules=( "${_iris_custom_modules[@]/$2}" )
+        for _mod in "${_iris_custom_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_custom_modules.*)/{s//_iris_custom_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module disabled\n" "$2"
+        return
+      else
+        printf -- "iris: '%s' module is not enabled\n" "$2"
+        return 8
+      fi;;
+    *) 
+      printf -- "iris: please specifiy o or c\n"
+      return 6;;
+  esac
 }
 
 ################################################################################
