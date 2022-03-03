@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.118
+# @version: 0.0.119
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -40,17 +40,17 @@ _prompt::init(){
     [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
   fi
   for _mod in "${_iris_official_modules[@]}"; do
-    [[ -f "${_iris_base_path}/config/modules/${_mod}.conf" ]] && . "${_iris_base_path}/config/modules/${_mod}.conf"
-    if [[ -f "${_iris_base_path}/modules/${_mod}.module.sh" ]]; then
-      . "${_iris_base_path}/modules/${_mod}.module.sh"
+    [[ -f "${_iris_base_path}/modules/${_mod}/${_mod}.conf" ]] && . "${_iris_base_path}/modules/${_mod}/${_mod}.conf"
+    if [[ -f "${_iris_base_path}/modules/${_mod}/${_mod}.module.sh" ]]; then
+      . "${_iris_base_path}/modules/${_mod}/${_mod}.module.sh"
     else
       printf -- "error[3]: unable to load %s\n" "${_mod}" && return 3
     fi
   done
   for _mod in "${_iris_custom_modules[@]}"; do
-    [[ -f "${_iris_base_path}/custom/config/${_mod}.conf" ]] && . "${_iris_base_path}/custom/config/${_mod}.conf"
-    if [[ -f "${_iris_base_path}/custom/modules/${_mod}.module.sh" ]]; then
-      . "${_iris_base_path}/custom/modules/${_mod}.module.sh"
+    [[ -f "${_iris_base_path}/custom/modules/${_mod}/${_mod}.conf" ]] && . "${_iris_base_path}/custom/modules/${_mod}/${_mod}.conf"
+    if [[ -f "${_iris_base_path}/custom/modules/${_mod}/${_mod}.module.sh" ]]; then
+      . "${_iris_base_path}/custom/modules/${_mod}/${_mod}.module.sh"
     else
       printf -- "error[4]: unable to load %s\n" "${_mod}" && return 4
     fi
@@ -308,11 +308,12 @@ options:
 
 ################################################################################
 # @description: lists users module status
+# shellcheck disable=1090
 ################################################################################
 _iris::modules(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
   declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
-  [[ $_iris_base_path == "/usr/local/bin/iris" ]] &&
+  [[ ${_iris_base_path} == "/usr/local/bin/iris" ]] &&
   if [[ ${_iris_per_user:="false"} != "true" ]]; then
     [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
     declare _conf_file="${_iris_base_path}/config/iris.conf"
@@ -334,7 +335,7 @@ _iris::modules(){
   done
   for _mods in "${_iris_base_path}/custom/modules/"*; do
     _mods="${_mods##*/}"; _mods="${_mods%%.*}"
-    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+    if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$_mods"; then
         _iris_disabled_c_modules+=( "$_mods" )
     fi
   done
