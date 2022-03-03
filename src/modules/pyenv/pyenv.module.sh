@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 ################################################################################
-# <START METADATA>
 # @file_name: pyenv.module.sh
-# @version: 0.0.22
+# @version: 0.0.24
 # @project_name: iris
 # @brief: pyenv module for iris
-#
-# @save_tasks:
-#  automated_versioning: true
 #
 # @author: Jamie Dobbs (mschf)
 # @author_contact: jamie.dobbs@mschf.dev
@@ -15,7 +11,6 @@
 # @license: BSD-3 Clause (Included in LICENSE)
 # Copyright (C) 2021-2022, Jamie Dobbs
 # All rights reserved.
-# <END METADATA>
 # shellcheck disable=2154
 ################################################################################
 
