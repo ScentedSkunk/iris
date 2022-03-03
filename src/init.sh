@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.117
+# @version: 0.0.118
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -20,6 +20,11 @@
 ################################################################################
 
 ################################################################################
+# @description: checks BASH version
+################################################################################
+[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
+
+################################################################################
 # @description: checks and readies environment for iris
 # @noargs
 # @return_code: 1 unsupported bash version
@@ -28,7 +33,6 @@
 # @return_code: 4 unable to load custom module
 # shellcheck source=/dev/null
 ################################################################################
-[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
 _prompt::init(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
   declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
