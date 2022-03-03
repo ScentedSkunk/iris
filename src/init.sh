@@ -180,6 +180,7 @@ _iris::args(){
 # @return_code: 6 o|c not specified
 # @return_code: 7 module not enabled
 # @return_code: 8 module not enabled
+# shellcheck disable=1090
 ################################################################################
 _iris::disable(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
@@ -238,6 +239,7 @@ _iris::disable(){
 # @return_code: 9 o|c not specified
 # @return_code: 10 module already enabled
 # @return_code: 11 module already enabled
+# shellcheck disable=1090
 ################################################################################
 _iris::enable(){
   [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
