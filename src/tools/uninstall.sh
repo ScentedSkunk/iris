@@ -2,7 +2,7 @@
 ################################################################################
 # <START METADATA>
 # @file_name: uninstall.sh
-# @version: 0.0.1
+# @version: 0.0.2
 # @project_name: iris
 # @brief: uninstaller for iris
 #
@@ -22,9 +22,14 @@
 ################################################################################
 # @description: checks for sudo and bash version
 # @return_code: 1 user is not root/sudo
+# @return_code: 2 no confirmation
 ################################################################################
 uninstall::check(){
   [[ $(whoami) != "root" ]] && printf -- "error[1]: uninstaller requires root/sudo\n" && exit 1
+  read -p "iris: uninstall iris? [y/N] " -n 1 -r; echo
+  [[ ! $REPLY =~ ^[Yy]$ ]] && exit 2
+  uninstall::iris
+  
 }
 
 ################################################################################
@@ -55,4 +60,3 @@ uninstall::iris(){
 # @description: calls functions in required order
 ################################################################################
 uninstall::check
-uninstall::iris
