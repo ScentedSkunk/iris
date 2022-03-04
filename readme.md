@@ -15,6 +15,7 @@
   <p align="center">
 A minimal, customizable prompt for bash
     <br />
+    <img alt="CodeFactor Grade" src="https://img.shields.io/codefactor/grade/github/mschf-dev/iris?style=for-the-badge">
     <img src="https://iris.mschf.dev:/github/license/mschf-dev/iris?style=for-the-badge">
     <img src="https://iris.mschf.dev:/github/stars/mschf-dev/iris?style=for-the-badge">
     <img src="https://iris.mschf.dev:/github/languages/code-size/mschf-dev/iris?style=for-the-badge">
@@ -80,7 +81,19 @@ The following software will let you download the installer (which will set up th
 <!-- usage -->
 ## usage
 
-iris has a selection of commands you can run (which will be documented soon)
+iris has a selection of commands you can run:
+```bash
+--config  [view|set] [var]  manipulate iris configs
+--default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
+--disable [o|c] [module]    disables the provided module [o=official|c=custom]
+--enable  [o|c] [module]    enables the provided module [o=official|c=custom]
+--help                      displays this help
+--modules                   lists all installed modules
+--reload                    reloads iris
+--uninstall                 uninstalls iris
+--upgrade                   upgrades iris to latest version
+--version                   outputs iris version\n\n" "${_iris_version}
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
