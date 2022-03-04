@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: uninstall.sh
-# @version: 0.0.4
+# @version: 0.0.5
 # @project_name: iris
 # @brief: uninstaller for iris
 #
@@ -20,7 +20,7 @@
 # @return_code: 2 no confirmation
 ################################################################################
 uninstall::check(){
-  [[ $(whoami) != "root" ]] && printf -- "error[1]: uninstaller requires root/sudo\n" && exit 1
+  [[ $(whoami) != "root" ]] && printf -- "iris[1]: uninstaller requires root/sudo\n" && exit 1
   read -p "iris: uninstall iris? [y/N] " -n 1 -r; echo
   [[ ! $REPLY =~ ^[Yy]$ ]] && exit 2
   uninstall::iris

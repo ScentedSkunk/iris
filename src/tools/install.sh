@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: install.sh
-# @version: 0.0.87
+# @version: 0.0.88
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -20,8 +20,8 @@
 # @return code: 2 bash version mismatch
 ################################################################################
 install::check(){
-  [[ $(whoami) != "root" ]] && printf -- "error[1]: installer requires root/sudo\n" && exit 1
-  [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[2]: iris requires a bash version of 4 or greater\n" && exit 2
+  [[ $(whoami) != "root" ]] && printf -- "iris[1]: installer requires root/sudo\n" && exit 1
+  [[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "iris[2]: iris requires a bash version of 4 or greater\n" && exit 2
 }
 
 ################################################################################

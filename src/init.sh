@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.124
+# @version: 0.0.125
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -18,7 +18,7 @@
 # @description: checks BASH version
 # @return_code: 1 unsupported bash version
 ################################################################################
-[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
+[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "iris[1]: iris requires a bash version of 4 or greater\n" && return 1
 
 ################################################################################
 # @description: checks and readies environment for iris
