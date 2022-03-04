@@ -1,6 +1,6 @@
 # security policy
 
-mschf.dev takes the security of all code seriously, this includes all source code repositories managed through GitHub, these include [iris](https://github.com/mschf-dev/iris), [mflibs](https://github.com/mschf-dev/mflibs) and [mfserv](https://github.com/mschf-dev/mfserv)
+mschf.dev takes the security of all code seriously, this includes all source code repositories managed through GitHub.
 
 ## reporting a vulnerability
 

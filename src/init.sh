@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 ################################################################################
-# <START METADATA>
 # @file_name: init.sh
-# @version: 0.0.107
+# @version: 0.0.133
 # @project_name: iris
 # @brief: initializer for iris
-#
-# @save_tasks:
-#  automated_versioning: true
 #
 # @author: Jamie Dobbs (mschf)
 # @author_contact: jamie.dobbs@mschf.dev
@@ -15,40 +11,59 @@
 # @license: BSD-3 Clause (Included in LICENSE)
 # Copyright (C) 2021-2022, Jamie Dobbs
 # All rights reserved.
-# <END METADATA>
 # shellcheck disable=2154
 ################################################################################
 
 ################################################################################
-# @description: checks and readies environment for iris
-# @noargs
+# @description: checks BASH version
 # @return_code: 1 unsupported bash version
-# @return_code: 2 unable to load default config
-# @return_code: 3 unable to load module
-# @return_code: 4 unable to load custom module
+################################################################################
+[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "iris[1]: iris requires a bash version of 4 or greater\n" && return 1
+
+################################################################################
+# @description: checks and readies environment for iris
+# @return_code: 2 unable to load iris config file
+# @return_code: 3 unable to load module config
+# @return_code: 4 unable to load module
+# @return_code: 5 unable to load custom module config
+# @return_code: 6 unable to load custom module
 # shellcheck source=/dev/null
 ################################################################################
-[[ ${BASH_VERSINFO[0]} -lt 4 ]] && printf -- "error[1]: iris requires a bash version of 4 or greater\n" && return 1
 _prompt::init(){
-  [[ -f "${HOME}/.config/iris/iris.conf" ]] && . "${HOME}/.config/iris/iris.conf"
-  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath -s "${BASH_SOURCE[0]}")")"
-  if [[ ${_iris_per_user:="false"} != "true" ]]; then
-    [[ -f "${_iris_base_path}/config/iris.conf" ]] && . "${_iris_base_path}/config/iris.conf"
+  declare _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+  if [[ -f "${HOME}/.config/iris/iris.conf" ]]; then
+    . "${HOME}/.config/iris/iris.conf"
+  elif [[ -f "${_iris_base_path}/config/iris.conf" ]]; then
+    . "${_iris_base_path}/config/iris.conf"
+  else
+    printf -- "iris[2]: unable to load iris config file\n" && return 2
   fi
   for _mod in "${_iris_official_modules[@]}"; do
-    [[ -f "${_iris_base_path}/config/modules/${_mod}.conf" ]] && . "${_iris_base_path}/config/modules/${_mod}.conf"
-    if [[ -f "${_iris_base_path}/modules/${_mod}.module.sh" ]]; then
-      . "${_iris_base_path}/modules/${_mod}.module.sh"
+    if [[ -f "${HOME}/.config/iris/modules/${_mod}.conf" ]]; then
+      . "${HOME}/.config/iris/modules/${_mod}.conf"
+    elif [[ -f "${_iris_base_path}/config/modules/${_mod}.conf" ]]; then
+      . "${_iris_base_path}/config/modules/${_mod}.conf"
     else
-      printf -- "error[3]: unable to load %s\n" "${_mod}" && return 3
+      printf -- "iris[3]: unable to load %s config file\n" "${_mod}" && return 3
+    fi
+    if [[ -f "${_iris_base_path}/modules/${_mod}/${_mod}.module.sh" ]]; then
+      . "${_iris_base_path}/modules/${_mod}/${_mod}.module.sh" 
+    else 
+      printf -- "iris[4]: unable to load %s module\n" "${_mod}" && return 4
     fi
   done
   for _mod in "${_iris_custom_modules[@]}"; do
-    [[ -f "${_iris_base_path}/custom/config/${_mod}.conf" ]] && . "${_iris_base_path}/custom/config/${_mod}.conf"
-    if [[ -f "${_iris_base_path}/custom/modules/${_mod}.module.sh" ]]; then
-      . "${_iris_base_path}/custom/modules/${_mod}.module.sh"
+    if [[ -f "${HOME}/.config/iris/custom/${_mod}.conf" ]]; then
+      . "${HOME}/.config/iris/custom/${_mod}.conf"
+    elif [[ -f "${_iris_base_path}/custom/modules/${_mod}/${_mod}.conf" ]]; then
+      . "${_iris_base_path}/custom/modules/${_mod}/${_mod}.conf"
     else
-      printf -- "error[4]: unable to load %s\n" "${_mod}" && return 4
+      printf -- "iris[5]: unable to load %s config file\n" "${_mod}" && return 5
+    fi
+    if [[ -f "${_iris_base_path}/custom/modules/${_mod}/${_mod}.module.sh" ]]; then
+      . "${_iris_base_path}/custom/modules/${_mod}/${_mod}.module.sh" 
+    else 
+      printf -- "iris[5]: unable to load %s module\n" "${_mod}" && return 6
     fi
   done
   unset mod
@@ -77,7 +92,6 @@ _prompt::color(){
 ################################################################################
 # @description: outputs prompt information
 # @arg $1: prompt information to output
-# @return_code 0: success
 ################################################################################
 _prompt::output(){
   declare _prompt_re
@@ -150,11 +164,297 @@ _prompt::generate(){
 }
 
 ################################################################################
+# @description: loads conf file
+# @return_code: 7 unable to load iris config file
+# shellcheck source=/dev/null
+################################################################################
+_iris::conf(){
+  declare -g _iris_base_path; _iris_base_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+  if [[ -f "${HOME}/.config/iris/iris.conf" ]]; then
+    . "${HOME}/.config/iris/iris.conf"
+    declare -g _conf_file="${HOME}/.config/iris/iris.conf"
+  elif [[ -f "${_iris_base_path}/config/iris.conf" ]]; then
+    . "${_iris_base_path}/config/iris.conf"
+    declare -g _conf_file="${_iris_base_path}/config/iris.conf"
+  else
+    printf -- "iris[7]: unable to load iris config file\n" && return 7
+  fi
+}
+
+################################################################################
+# @description: parses arguments
+# @arg $1: function to run
+################################################################################
+_iris::args(){
+  if [[ $# -gt 0 ]]; then
+    case "${1}" in
+      --config*)    _iris::config "${2,,}" "${3,,}" "${4}";;
+      --default*)   _iris::default "${2,,}" "${3,,}";;
+      --disable*)   _iris::disable "${2,,}" "${3,,}";;
+      --enable*)    _iris::enable "${2,,}" "${3,,}";;
+      --help)       _iris::help;;
+      --modules)    _iris::modules;;
+      --reload)     _iris::reload;;
+      --upgrade)    "${_iris_base_path}/tools/upgrade.sh";;
+      --uninstall)  "${_iris_base_path}/tools/uninstall.sh";;
+      --version)    _iris::version;;
+      *)            _iris::unknown "${1}";;
+    esac
+  else
+    _iris::help
+  fi
+}
+
+################################################################################
+# @description: manipulate iris configs
+# @arg $1: view/set
+# @arg $2: config name
+# @arg $3: config value
+# @return_code: 8 config value does not exist
+################################################################################
+_iris::config(){
+  if [[ -n "${!2}" ]]; then
+    declare _iris_view_config="${2}"
+  else
+    declare _iris_view_config="_${2}"
+  fi
+  if [[ -n "${!2}" ]]; then
+    declare _iris_view_config="${2}"
+  else
+    declare _iris_view_config="_${2}"
+  fi
+  if [[ -n ${!_iris_view_config} ]]; then
+    declare _iris_view_value=${!_iris_view_config}
+  else
+    declare _iris_view_value="NULL"
+  fi
+  case "$1" in
+    view)
+      printf -- "iris: %s=%s\n" "${_iris_view_config}" "${_iris_view_value}";;
+    set)
+      if grep -q "${_iris_view_config}" "${_conf_file}"; then
+        sed -i "0,/${_iris_view_config}.*)/{s|${_iris_view_config}.*;|${_iris_view_config}=\"${3}\"|}" "${_conf_file}"
+      else
+        printf -- "iris[8]: '%s' does not exist\n" "${_iris_view_config}" && return 8
+      fi;;
+    esac
+}       
+
+################################################################################
+# @description: copies default conf to $HOME dir
+# @arg $1: o|c
+# @arg $2: conf
+# @return_code: 9 o|c not specified
+# @return_code: 10 default config not found
+# @return_code: 11 default config not found
+################################################################################
+_iris::default(){
+  case "$1" in
+    o)
+      mkdir -p "${HOME}/.config/iris/modules"
+      if [[ -f "${_iris_base_path}/config/modules/${2}.conf" ]]; then
+        cp -f "${_iris_base_path}/config/modules/${2}.conf" "${HOME}/.config/iris/modules/${2}.conf"
+      else
+        printf -- "iris[9]: '%s' default config not found\n" "$2" && return 9
+      fi;;
+    c)
+      mkdir -p "${HOME}/.config/iris/modules"
+      if [[ -f "${_iris_base_path}/custom/modules/${2}/${2}.conf" ]]; then
+        cp -f "${_iris_base_path}/custom/modules/${_mod}/${_mod}.conf" "${HOME}/.config/iris/custom/modules/${2}.conf"
+      else
+        printf -- "iris[10]: '%s' default config not found\n" "$2" && return 10
+      fi;;
+    *) 
+      printf -- "iris[11]: o|c not specified\n" && return 11;;
+  esac 
+}
+
+################################################################################
+# @description: disables provided module
+# @arg $1: o|c
+# @arg $2: module
+# @return_code: 12 module not enabled
+# @return_code: 13 module not enabled
+# @return_code: 14 o|c not specified
+# shellcheck disable=1090
+################################################################################
+_iris::disable(){
+  case "$1" in
+    o)
+      if printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
+        for i in "${!_iris_official_modules[@]}"; do
+          [[ ${_iris_official_modules[i]} == "$2" ]] && unset '_iris_official_modules[i]'
+        done
+        for _mod in "${_iris_official_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_official_modules.*)/{s//_iris_official_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module disabled\n" "$2" && return
+      else
+        printf -- "iris[12]: '%s' module is not enabled\n" "$2" && return 12
+      fi;;
+    c)
+      if printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
+        for i in "${!_iris_custom_modules[@]}"; do
+          [[ ${_iris_custom_modules[i]} == "$2" ]] && unset '_iris_custom_modules[i]'
+        done
+        for _mod in "${_iris_custom_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_custom_modules.*)/{s||_iris_custom_modules=( ${_enabled_mods})|}" "${_conf_file}"
+        printf -- "iris: '%s' module disabled\n" "$2" && return
+      else
+        printf -- "iris[13]: '%s' module is not enabled\n" "$2" && return 13
+      fi;;
+    *) 
+      printf -- "iris[14]: o|c not specified\n" && return 14;;
+  esac
+}
+
+################################################################################
+# @description: enables provided module
+# @arg $1: o|c
+# @arg $2: module
+# @return_code: 15 module already enabled
+# @return_code: 16 module already enabled
+# @return_code: 17 o|c not specified
+# shellcheck disable=1090
+################################################################################
+_iris::enable(){
+  case "$1" in
+    o)
+      if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$2"; then
+        _iris_official_modules+=( "${2}" )
+        for _mod in "${_iris_official_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_official_modules.*)/{s//_iris_official_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        printf -- "iris: '%s' module enabled\n" "$2"
+        return
+      else
+        printf -- "iris[15]: '%s' module is already enabled\n" "$2" && return 15
+      fi;;
+    c)
+      if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
+        _iris_custom_modules+=( "${2}" )
+        for _mod in "${_iris_custom_modules[@]}"; do
+          [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
+        done
+        sed -i "0,/_iris_custom_modules.*)/{s||_iris_custom_modules=( ${_enabled_mods})|}" "${_conf_file}"
+        printf -- "iris: '%s' module enabled\n" "$2"
+        return
+      else
+        printf -- "iris[16]: '%s' module is already enabled\n" "$2" && return 16
+      fi;;
+    *) 
+      printf -- "iris[17]: please specifiy o or c\n" && return 17;;
+  esac
+}
+
+################################################################################
+# @description: outputs help information
+################################################################################
+_iris::help(){
+  declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
+  printf -- "iris %s
+usage: iris [--config [view|set] <var> ] [--default [o|c] <module> ] [--disable [o|c] <module> ]
+            [--enable [o|c] <module>] [--help] [--modules] [--reload] [--uninstall] [--upgrade]
+            [--version]
+
+iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
+Every detail is cusomizable to your liking to make it as lean or feature-packed
+as you like.
+
+options:
+  --config  [view|set] [var]  manipulate iris configs
+  --default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
+  --disable [o|c] [module]    disables the provided module [o=official|c=custom]
+  --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
+  --help                      displays this help
+  --modules                   lists all installed modules
+  --reload                    reloads iris
+  --uninstall                 uninstalls iris
+  --upgrade                   upgrades iris to latest version
+  --version                   outputs iris version\n\n" "${_iris_version}"
+  return
+}
+
+################################################################################
+# @description: lists users module status
+# shellcheck disable=1090
+################################################################################
+_iris::modules(){
+  declare _enabled_o_mods _enabled_c_mods
+  printf -v _enabled_o_mods '%s, ' "${_iris_official_modules[@]}"
+  printf -v _enabled_c_mods '%s, ' "${_iris_custom_modules[@]}"
+  [[ ${_enabled_o_mods} == ", " ]] && _enabled_o_mods=none
+  [[ ${_enabled_c_mods} == ", " ]] && _enabled_c_mods=none
+  [[ ${_enabled_o_mods} != "none" ]] && _enabled_o_mods=${_enabled_o_mods%,*}
+  [[ ${_enabled_c_mods} != "none" ]] && _enabled_c_mods=${_enabled_c_mods%,*}
+  for _mods in "${_iris_base_path}/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
+      _iris_disabled_o_modules+=( "$_mods" )
+    fi
+  done
+  for _mods in "${_iris_base_path}/custom/modules/"*; do
+    _mods="${_mods##*/}"; _mods="${_mods%%.*}"
+    if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$_mods"; then
+      _iris_disabled_c_modules+=( "$_mods" )
+    fi
+  done
+  printf -v _disabled_o_mods '%s, ' "${_iris_disabled_o_modules[@]}"
+  printf -v _disabled_c_mods '%s, ' "${_iris_disabled_c_modules[@]}"
+  [[ ${_disabled_o_mods} == ", " ]] && _disabled_o_mods=none
+  [[ ${_disabled_c_mods} == ", " ]] && _disabled_c_mods=none
+  [[ ${_disabled_o_mods} != "none" ]] && _disabled_o_mods=${_disabled_o_mods%,*}
+  [[ ${_disabled_c_mods} != "none" ]] && _disabled_c_mods=${_disabled_c_mods%,*}
+  [[ ${_disabled_c_mods} == "*" ]] && _disabled_c_mods=none
+  printf -- "iris: %s modules\n
+-- enabled --
+official modules: %s
+custom modules: %s\n
+-- disabled --
+official modules: %s
+custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_disabled_o_mods}" "${_disabled_c_mods}"
+}
+
+################################################################################
+# @description: reloads iris
+# shellcheck source=/dev/null
+################################################################################
+_iris::reload(){
+  if [[ $- == *i* ]]; then
+    . "${HOME}/.bashrc"
+  else
+    exec bash
+  fi
+}
+
+################################################################################
+# @description: outputs version
+################################################################################
+_iris::version(){
+  declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
+  printf -- "iris %s\n" "${_iris_version}"
+}
+
+################################################################################
+# @description: outputs unknown command
+# @arg $1: incorrect command
+# @return_code: 18 command not found
+################################################################################
+_iris::unknown(){
+  printf -- "iris[18]: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}" && return 18
+}
+
+################################################################################
 # @description: calls functions in required order
 ################################################################################
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
   _prompt::init
   _prompt::output _prompt::build
 else
+  _iris::conf
   _iris::args "$@"
 fi
