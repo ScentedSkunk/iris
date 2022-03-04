@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.129
+# @version: 0.0.130
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -384,11 +384,7 @@ custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_di
 # shellcheck source=/dev/null
 ################################################################################
 _iris::reload(){
-  if [[ $- == *i* ]]; then
-    . "${HOME}/.bashrc"
-  else
-    exec bash
-  fi
+  . "${HOME}/.bashrc"
 }
 
 ################################################################################
