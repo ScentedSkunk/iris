@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: uninstall.sh
-# @version: 0.0.7
+# @version: 0.0.8
 # @project_name: iris
 # @brief: uninstaller for iris
 #
@@ -50,7 +50,11 @@ uninstall::iris(){
   unlink "/usr/local/bin/iris"
   rm -rf "${_src_path}"
   printf -- "iris: iris has been successfully uninstalled\n"
-  . "${HOME}/.bashrc"
+  if [[ $- == *i* ]]; then
+    . "${HOME}/.bashrc"
+  else
+    exec bash
+  fi
 }
 
 ################################################################################

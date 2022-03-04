@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: upgrade.sh
-# @version: 0.0.6
+# @version: 0.0.7
 # @project_name: iris
 # @brief: upgrader for iris
 #
@@ -26,6 +26,7 @@ upgrade::check(){
 
 ################################################################################
 # @description: installs iris
+# shellcheck source=/dev/null
 ################################################################################
 upgrade::iris(){
   declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
@@ -51,7 +52,12 @@ upgrade::iris(){
   cp -f "${_src_path}/config/.bashrc" "/etc/skel/"
   chmod -R 755 "${_src_path%/*}"
   printf -- "iris: iris has upgraded to latest version or is already at the latest version\n"
-  "/usr/local/bin/iris --reload"
+  
+  if [[ $- == *i* ]]; then
+    . "${HOME}/.bashrc"
+  else
+    exec bash
+  fi
 }
 
 ################################################################################
