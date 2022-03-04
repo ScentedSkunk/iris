@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.130
+# @version: 0.0.131
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -188,6 +188,7 @@ _iris::conf(){
 _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
+      --config*)    _iris::config "${2,,}" "${3,,}" "${4}";;
       --default*)   _iris::default "${2,,}" "${3,,}";;
       --disable*)   _iris::disable "${2,,}" "${3,,}";;
       --enable*)    _iris::enable "${2,,}" "${3,,}";;
@@ -203,6 +204,41 @@ _iris::args(){
     _iris::help
   fi
 }
+
+################################################################################
+# @description: manipulate iris configs
+# @arg $1: view/set
+# @arg $2: config name
+# @arg $3: config value
+# @return_code: 8 config value does not exist
+################################################################################
+_iris::config(){
+  if [[ -n "${!2}" ]]; then
+    declare _iris_view_config="${2}"
+  else
+    declare _iris_view_config="_${2}"
+  fi
+  if [[ -n "${!2}" ]]; then
+    declare _iris_view_config="${2}"
+  else
+    declare _iris_view_config="_${2}"
+  fi
+  if [[ -n ${!_iris_view_config} ]]; then
+    declare _iris_view_value=${!_iris_view_config}
+  else
+    declare _iris_view_value="NULL"
+  fi
+  case "$1" in
+    view)
+      printf -- "iris: %s=%s\n" "${_iris_view_config}" "${_iris_view_value}";;
+    set)
+      if grep -q "${_iris_view_config}" "${_conf_file}"; then
+        sed -i "0,/${_iris_view_config}.*)/{s|${_iris_view_config}.*;|${_iris_view_config}=\"${3}\"|}" "${_conf_file}"
+      else
+        printf -- "iris[8]: '%s' does not exist\n" "${_iris_view_config}" && return 8
+      fi;;
+    esac
+}       
 
 ################################################################################
 # @description: copies default conf to $HOME dir
@@ -321,14 +357,16 @@ _iris::enable(){
 _iris::help(){
   declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
   printf -- "iris %s
-usage: iris [--default [o|c] <module> ] [--disable [o|c] <module> ] [--enable [o|c] <module>]
-            [--help] [--modules] [--reload] [--uninstall] [--upgrade] [--version]
+usage: iris [--config [view|set] <var> ] [--default [o|c] <module> ] [--disable [o|c] <module> ]
+            [--enable [o|c] <module>] [--help] [--modules] [--reload] [--uninstall] [--upgrade]
+            [--version]
 
 iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
 Every detail is cusomizable to your liking to make it as lean or feature-packed
 as you like.
 
 options:
+  --config  [view|set] [var]  manipulate iris configs
   --default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
   --disable [o|c] [module]    disables the provided module [o=official|c=custom]
   --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
