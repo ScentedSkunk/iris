@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.127
+# @version: 0.0.128
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -236,10 +236,9 @@ _iris::default(){
 # @description: disables provided module
 # @arg $1: o|c
 # @arg $2: module
-# @return_code: 7 unable to load iris config file
-# @return_code: 8 o|c not specified
-# @return_code: 9 module not enabled
-# @return_code: 10 module not enabled
+# @return_code: 10 o|c not specified
+# @return_code: 11 module not enabled
+# @return_code: 12 module not enabled
 # shellcheck disable=1090
 ################################################################################
 _iris::disable(){
@@ -255,7 +254,7 @@ _iris::disable(){
         sed -i "0,/_iris_official_modules.*)/{s//_iris_official_modules=( ${_enabled_mods})/}" "${_conf_file}"
         printf -- "iris: '%s' module disabled\n" "$2" && return
       else
-        printf -- "iris[9]: '%s' module is not enabled\n" "$2" && return 9
+        printf -- "iris[11]: '%s' module is not enabled\n" "$2" && return 11
       fi;;
     c)
       if printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
@@ -268,10 +267,10 @@ _iris::disable(){
         sed -i "0,/_iris_custom_modules.*)/{s//_iris_custom_modules=( ${_enabled_mods})/}" "${_conf_file}"
         printf -- "iris: '%s' module disabled\n" "$2" && return
       else
-        printf -- "iris[10]: '%s' module is not enabled\n" "$2" && return 10
+        printf -- "iris[12]: '%s' module is not enabled\n" "$2" && return 12
       fi;;
     *) 
-      printf -- "iris[8]: o|c not specified\n" && return 8;;
+      printf -- "iris[10]: o|c not specified\n" && return 10;;
   esac
 }
 
@@ -296,7 +295,7 @@ _iris::enable(){
         printf -- "iris: '%s' module enabled\n" "$2"
         return
       else
-        printf -- "iris[13]: '%s' module is already enabled\n" "$2" && return 13
+        printf -- "iris[14]: '%s' module is already enabled\n" "$2" && return 14
       fi;;
     c)
       if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$2"; then
@@ -308,10 +307,10 @@ _iris::enable(){
         printf -- "iris: '%s' module enabled\n" "$2"
         return
       else
-        printf -- "iris[14]: '%s' module is already enabled\n" "$2" && return 14
+        printf -- "iris[15]: '%s' module is already enabled\n" "$2" && return 15
       fi;;
     *) 
-      printf -- "iris[12]: please specifiy o or c\n" && return 12;;
+      printf -- "iris[13]: please specifiy o or c\n" && return 13;;
   esac
 }
 
@@ -354,13 +353,13 @@ _iris::modules(){
   for _mods in "${_iris_base_path}/modules/"*; do
     _mods="${_mods##*/}"; _mods="${_mods%%.*}"
     if ! printf '%s\0' "${_iris_official_modules[@]}" | grep -Fxq "$_mods"; then
-        _iris_disabled_o_modules+=( "$_mods" )
+      _iris_disabled_o_modules+=( "$_mods" )
     fi
   done
   for _mods in "${_iris_base_path}/custom/modules/"*; do
     _mods="${_mods##*/}"; _mods="${_mods%%.*}"
     if ! printf '%s\0' "${_iris_custom_modules[@]}" | grep -Fxq "$_mods"; then
-        _iris_disabled_c_modules+=( "$_mods" )
+      _iris_disabled_c_modules+=( "$_mods" )
     fi
   done
   printf -v _disabled_o_mods '%s, ' "${_iris_disabled_o_modules[@]}"
@@ -390,11 +389,10 @@ _iris::version(){
 ################################################################################
 # @description: outputs unknown command
 # @arg $1: incorrect command
-# @return_code: 5 command not found
+# @return_code: 16 command not found
 ################################################################################
 _iris::unknown(){
-  printf -- "iris: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}"
-  return 5
+  printf -- "iris[16]: '%s' is not an iris command. See 'iris --help' for all commands.\n" "${1}" && return 16
 }
 
 ################################################################################
