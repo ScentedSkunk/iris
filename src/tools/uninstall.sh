@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: uninstall.sh
-# @version: 0.0.6
+# @version: 0.0.7
 # @project_name: iris
 # @brief: uninstaller for iris
 #
@@ -29,6 +29,7 @@ uninstall::check(){
 
 ################################################################################
 # @description: installs iris
+# shellcheck source=/dev/null
 ################################################################################
 uninstall::iris(){
   declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"; _src_path="${_src_path%/*}"
@@ -49,7 +50,7 @@ uninstall::iris(){
   unlink "/usr/local/bin/iris"
   rm -rf "${_src_path}"
   printf -- "iris: iris has been successfully uninstalled\n"
-  exec bash
+  . "${HOME}/.bashrc"
 }
 
 ################################################################################

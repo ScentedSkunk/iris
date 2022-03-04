@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: install.sh
-# @version: 0.0.89
+# @version: 0.0.90
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -26,6 +26,7 @@ install::check(){
 
 ################################################################################
 # @description: installs iris
+# shellcheck source=/dev/null
 ################################################################################
 install::iris(){
   declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
@@ -52,7 +53,11 @@ install::iris(){
   chmod -R 755 "${_src_path%/*}"
   ln -s "${_src_path}/init.sh" "/usr/local/bin/iris"
   printf -- "iris: iris has been installed\n"
-  exec bash
+  if [[ $- == *i* ]]; then
+    . "${HOME}/.bashrc"
+  else
+    exec bash
+  fi
 }
 
 ################################################################################
