@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.124
+# @version: 0.0.125
 # @project_name: iris
 # @brief: initializer for iris
 #
