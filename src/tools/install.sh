@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: install.sh
-# @version: 0.0.86
+# @version: 0.0.87
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -39,12 +39,14 @@ install::iris(){
       cp -f "${_src_path}/config/.bashrc" "${homedir}/.bashrc"
       mkdir -p "${homedir}/.config/iris/"
       cp -f "${_src_path}/config/iris.conf" "${homedir}/.config/iris/"
+      cp -rf "${_src_path}/config/modules" "${homedir}/.config/iris/"
       chown "${username}":"${group}" "${homedir}/.bashrc"
       chown -R "${username}":"${group}" "${homedir}/.config/iris"
     fi
   done < <(getent passwd)
   mkdir -p "/etc/skel/.config/iris/"
   cp -f "${_src_path}/config/iris.conf" "/etc/skel/.config/iris/"
+  cp -rf "${_src_path}/config/modules" "/etc/skel/.config/iris/"
   cp -f "/etc/skel/.bashrc" "/etc/skel/.bashrc.bak"
   cp -f "${_src_path}/config/.bashrc" "/etc/skel/"
   chmod -R 755 "${_src_path%/*}"
