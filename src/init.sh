@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.132
+# @version: 0.0.133
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -301,7 +301,7 @@ _iris::disable(){
         for _mod in "${_iris_custom_modules[@]}"; do
           [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
         done
-        sed -i "0,/_iris_custom_modules.*)/{s//_iris_custom_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        sed -i "0,/_iris_custom_modules.*)/{s||_iris_custom_modules=( ${_enabled_mods})|}" "${_conf_file}"
         printf -- "iris: '%s' module disabled\n" "$2" && return
       else
         printf -- "iris[13]: '%s' module is not enabled\n" "$2" && return 13
@@ -340,7 +340,7 @@ _iris::enable(){
         for _mod in "${_iris_custom_modules[@]}"; do
           [[ -n "${_mod}" ]] && _enabled_mods=${_enabled_mods}"\"${_mod}\" "
         done
-        sed -i "0,/_iris_custom_modules.*)/{s//_iris_custom_modules=( ${_enabled_mods})/}" "${_conf_file}"
+        sed -i "0,/_iris_custom_modules.*)/{s||_iris_custom_modules=( ${_enabled_mods})|}" "${_conf_file}"
         printf -- "iris: '%s' module enabled\n" "$2"
         return
       else
