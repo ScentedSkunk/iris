@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: uninstall.sh
-# @version: 0.0.5
+# @version: 0.0.6
 # @project_name: iris
 # @brief: uninstaller for iris
 #
@@ -48,6 +48,7 @@ uninstall::iris(){
   mv -f "/etc/skel/.bashrc.bak" "/etc/skel/.bashrc"
   unlink "/usr/local/bin/iris"
   rm -rf "${_src_path}"
+  printf -- "iris: iris has been successfully uninstalled\n"
   exec bash
 }
 

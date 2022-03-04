@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: upgrade.sh
-# @version: 0.0.3
+# @version: 0.0.4
 # @project_name: iris
 # @brief: upgrader for iris
 #
@@ -50,6 +50,7 @@ upgrade::iris(){
   cp -f "/etc/skel/.bashrc" "/etc/skel/.bashrc.bak"
   cp -f "${_src_path}/config/.bashrc" "/etc/skel/"
   chmod -R 755 "${_src_path%/*}"
+  printf -- "iris: iris has upgraded to latest version or is already at latest version\n"
   exec bash
 }
 

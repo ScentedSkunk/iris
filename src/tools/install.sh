@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: install.sh
-# @version: 0.0.88
+# @version: 0.0.89
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -51,6 +51,7 @@ install::iris(){
   cp -f "${_src_path}/config/.bashrc" "/etc/skel/"
   chmod -R 755 "${_src_path%/*}"
   ln -s "${_src_path}/init.sh" "/usr/local/bin/iris"
+  printf -- "iris: iris has been installed\n"
   exec bash
 }
 
