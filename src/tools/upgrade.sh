@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: upgrade.sh
-# @version: 0.0.1
+# @version: 0.0.2
 # @project_name: iris
 # @brief: upgrader for iris
 #
@@ -29,7 +29,7 @@ upgrade::check(){
 ################################################################################
 upgrade::iris(){
   declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
-  git -q -C pull "${_src_path}"
+  git pull -q -C "${_src_path}"
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
