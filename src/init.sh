@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.128
+# @version: 0.0.129
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -193,6 +193,7 @@ _iris::args(){
       --enable*)    _iris::enable "${2,,}" "${3,,}";;
       --help)       _iris::help;;
       --modules)    _iris::modules;;
+      --reload)     _iris::reload;;
       --upgrade)    "${_iris_base_path}/tools/upgrade.sh";;
       --uninstall)  "${_iris_base_path}/tools/uninstall.sh";;
       --version)    _iris::version;;
@@ -376,6 +377,18 @@ custom modules: %s\n
 -- disabled --
 official modules: %s
 custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_disabled_o_mods}" "${_disabled_c_mods}"
+}
+
+################################################################################
+# @description: reloads iris
+# shellcheck source=/dev/null
+################################################################################
+_iris::reload(){
+  if [[ $- == *i* ]]; then
+    . "${HOME}/.bashrc"
+  else
+    exec bash
+  fi
 }
 
 ################################################################################
