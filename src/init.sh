@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.129
+# @version: 0.0.130
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -321,18 +321,20 @@ _iris::enable(){
 _iris::help(){
   declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
   printf -- "iris %s
-usage: iris [--disable [o|c] <module> ] [--enable [o|c] <module>] [--help]
-            [--modules] [--uninstall] [--upgrade] [--version]
+usage: iris [--default [o|c] <module> ] [--disable [o|c] <module> ] [--enable [o|c] <module>]
+            [--help] [--modules] [--reload] [--uninstall] [--upgrade] [--version]
 
 iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
 Every detail is cusomizable to your liking to make it as lean or feature-packed
 as you like.
 
 options:
+  --default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
   --disable [o|c] [module]    disables the provided module [o=official|c=custom]
   --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
   --help                      displays this help
   --modules                   lists all installed modules
+  --reload                    reloads iris
   --uninstall                 uninstalls iris
   --upgrade                   upgrades iris to latest version
   --version                   outputs iris version\n\n" "${_iris_version}"
