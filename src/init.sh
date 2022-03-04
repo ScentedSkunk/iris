@@ -368,8 +368,7 @@ custom modules: %s\n" "${USER}" "${_enabled_o_mods}" "${_enabled_c_mods}" "${_di
 # @description: outputs version
 ################################################################################
 _iris::version(){
-  declare _iris_version
-  _iris_version="$(git describe --tags --abbrev=0)"
+  declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
   printf -- "iris %s\n" "${_iris_version}"
 }
 
