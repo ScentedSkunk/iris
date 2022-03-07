@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.137
+# @version: 0.0.138
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -166,7 +166,7 @@ _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
       --config*)    _iris::config "${2,,}" "${3,,}" "${4}";;
-      --defaults*)   _iris::default "${2,,}";;
+      --defaults)   _iris::defaults;;
       --disable-module*)   _iris::disable "${2,,}";;
       --enable-module*)    _iris::enable "${2,,}";;
       --help)       _iris::help;;
@@ -219,16 +219,10 @@ _iris::config(){
 
 ################################################################################
 # @description: copies default conf to $HOME dir
-# @arg $1: conf
-# @return_code: 6 default config not found
 ################################################################################
-_iris::default(){
+_iris::defaults(){
   mkdir -p "${HOME}/.config/iris/modules"
-  if [[ -f "${_iris_base_path}/config/modules/${1}.conf" ]]; then
-    cp -f "${_iris_base_path}/config/modules/${1}.conf" "${HOME}/.config/iris/modules/${1}.conf"
-  else
-    printf -- "iris[6]: '%s' default config not found\n" "$2" && return 6
-  fi
+  cp -rf "${_iris_base_path}/config/"* "${HOME}/.config/iris/"
 }
 
 ################################################################################
