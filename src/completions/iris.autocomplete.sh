@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 ################################################################################
-# @file_name: autocomplete.module.sh
-# @version: 0.0.1
+# @file_name: iris.autocomplete.sh
+# @version: 0.0.2
 # @project_name: iris
-# @brief: shopt module for iris
+# @brief: autocomplete module for iris
 #
 # @author: Jamie Dobbs (mschf)
 # @author_contact: jamie.dobbs@mschf.dev
@@ -13,11 +13,14 @@
 # All rights reserved.
 ################################################################################
 
+################################################################################
+# @description: autocomplete commands for iris
+################################################################################
 _iris::autocomplete() {
   declare current="${COMP_WORDS[COMP_CWORD]}"
   declare previous="${COMP_WORDS[COMP_CWORD-1]}"
   declare -ga COMPREPLY=()
-  declare -a commands=( "--config" "--default" "--disable" "--enable" "--help" "--modules" "--reload" "--uninstall" "--upgrade" "--version" )
+  declare -a commands=( "--config" "--default" "--disable-module" "--enable-module" "--help" "--modules" "--reload" "--uninstall" "--upgrade" "--version" )
   case "${previous}" in
     iris)
       mapfile -t COMPREPLY < <(compgen -W "${commands[*]}" -- "${current}")
@@ -28,5 +31,8 @@ _iris::autocomplete() {
       return 0;;
     esac
 }
+
+################################################################################
+# @description: calls functions in required order
 ################################################################################
 complete -F _iris::autocomplete iris

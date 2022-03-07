@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.135
+# @version: 0.0.136
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -47,7 +47,9 @@ _prompt::init(){
       printf -- "iris[3]: unable to load %s module\n" "${_mod}" && return 3
     fi
   done
-  unset mod
+  for f in "${_iris_base_path}/completions/"*; do
+    [[ -f "${f}" ]] && . "${f}"
+  done
 }
 
 ################################################################################
