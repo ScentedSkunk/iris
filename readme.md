@@ -38,7 +38,7 @@ A minimal, customizable prompt for bash
     <li><a href="#usage">usage</a></li>
     <li><a href="#contributing">contributing</a></li>
     <li><a href="#license">license</a></li>
-    <li><a href="#acknowledgments">acknowledgments</a></li>
+    <li><a href="#inspired-by">inspired by</a></li>
   </ol>
 </details>
 
@@ -51,11 +51,16 @@ iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater. Every 
 <!-- getting started -->
 ## getting started
 
-Install the latest version straight from your terminal:
+Install the latest version straight via wget:
+```bash
+sudo su -
+bash <(wget -qO - https://mschf.dev/iris/install)
+```
+Install the latest version straight via git clone:
 ```bash
 sudo su -
 git clone -q https://github.com/mschf-dev/iris "/opt/iris"
-/opt/iris/src/tools/install.sh
+/opt/iris/src/tools/git-install.sh
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -76,6 +81,8 @@ The following software will let you download the installer (which will set up th
   apt install git
   ```
 
+[iris was created to work with nerd fonts, why not give them a try?](https://www.nerdfonts.com/#home)
+
   <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- usage -->
@@ -83,16 +90,16 @@ The following software will let you download the installer (which will set up th
 
 iris has a selection of commands you can run:
 ```bash
---config  [view|set] [var]  manipulate iris configs
---default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
---disable [o|c] [module]    disables the provided module [o=official|c=custom]
---enable  [o|c] [module]    enables the provided module [o=official|c=custom]
---help                      displays this help
---modules                   lists all installed modules
---reload                    reloads iris
---uninstall                 uninstalls iris
---upgrade                   upgrades iris to latest version
---version                   outputs iris version\n\n" "${_iris_version}
+  --config  [view|set] [var]  manipulate iris configs
+  --defaults                  resets iris configuration to default
+  --disable-module [module]   disables the provided module
+  --enable-module  [module]   enables the provided module
+  --help                      displays this help
+  --modules                   lists all installed modules
+  --reload                    reloads iris
+  --uninstall                 uninstalls iris
+  --upgrade                   upgrades iris to latest version
+  --version                   outputs iris version\n\n" "${_iris_version}"
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -115,10 +122,11 @@ Distributed under the  BSD-3-Clause License. See `license` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGMENTS -->
-## acknowledgments
+<!-- INSPIRED -->
+## inspired by
 
-* [ohmybash](https://github.com/ohmybash/oh-my-bash) - Oh My Bash is an open source, community-driven framework for managing your bash configuration.
-* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - Oh My Zsh is an open source, community-driven framework for managing your zsh configuration.
+* [starship](https://github.com/starship/starship) - A customizable prompt built in rust.
+* [ohmybash](https://github.com/ohmybash/oh-my-bash) - An open source, community-driven framework for managing your bash configuration.
+* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - A community-driven framework for managing your zsh configuration.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
