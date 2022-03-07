@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.134
+# @version: 0.0.135
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -164,9 +164,9 @@ _iris::args(){
   if [[ $# -gt 0 ]]; then
     case "${1}" in
       --config*)    _iris::config "${2,,}" "${3,,}" "${4}";;
-      --default*)   _iris::default "${2,,}";;
-      --disable*)   _iris::disable "${2,,}";;
-      --enable*)    _iris::enable "${2,,}";;
+      --defaults*)   _iris::default "${2,,}";;
+      --disable-module*)   _iris::disable "${2,,}";;
+      --enable-module*)    _iris::enable "${2,,}";;
       --help)       _iris::help;;
       --modules)    _iris::modules;;
       --reload)     _iris::reload;;
@@ -276,9 +276,9 @@ _iris::enable(){
 _iris::help(){
   declare _iris_version; _iris_version="$(git -C "${_iris_base_path}" describe --tags --abbrev=0)"
   printf -- "iris %s
-usage: iris [--config [view|set] <var> ] [--default [o|c] <module> ] [--disable [o|c] <module> ]
-            [--enable [o|c] <module>] [--help] [--modules] [--reload] [--uninstall] [--upgrade]
-            [--version]
+usage: iris [--config [view|set] <var> ] [--defaults] [--disable-module <module> ]
+            [--enable-module <module>] [--help] [--modules] [--reload] [--uninstall] 
+            [--upgrade] [--version]
 
 iris is a minimal, fast, and customizable prompt for BASH 4.0 or greater.
 Every detail is cusomizable to your liking to make it as lean or feature-packed
@@ -286,9 +286,9 @@ as you like.
 
 options:
   --config  [view|set] [var]  manipulate iris configs
-  --default [o|c] [module]    copies default module conf to ~/.config/iris/* [o=official|c=custom]
-  --disable [o|c] [module]    disables the provided module [o=official|c=custom]
-  --enable  [o|c] [module]    enables the provided module [o=official|c=custom]
+  --defaults                  resets iris configuration to default
+  --disable-module [module]   disables the provided module
+  --enable-module  [module]   enables the provided module
   --help                      displays this help
   --modules                   lists all installed modules
   --reload                    reloads iris
