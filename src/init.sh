@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.136
+# @version: 0.0.137
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -104,10 +104,10 @@ _prompt::build(){
   { [[ ${_prompt_hostname:=ssh} == "all" ]]; } || { [[ ${_prompt_hostname} == "ssh" && -n ${SSH_CLIENT} ]]; } && _gen_uh="${_gen_uh}@${HOSTNAME}"
   _prompt::generate "${_gen_uh}|${_user_color}"
   [[ ${_prompt_dir:=true} == "true" ]] && _prompt::generate "${_prompt_wrapper:0:1}$(pwd | sed "s|^${HOME}|~|")${_prompt_wrapper:1:1}|${_prompt_info_color:=254}"
+  [[ ${_prompt_display_error:=true} == "true" ]] && [[ "${_last_status}" -ne 0 ]] && _prompt::generate "${_prompt_wrapper:0:1}${_last_status}${_prompt_wrapper:1:1}|${_prompt_fail_color:=203}"
   for _mod in "${_iris_modules[@]}"; do
     _module::init::test "_${_mod}::post" && "_${_mod}::post"
   done
-  [[ ${_prompt_display_error:=true} == "true" ]] && [[ "${_last_status}" -ne 0 ]] && _prompt::generate "${_prompt_wrapper:0:1}${_last_status}${_prompt_wrapper:1:1} |${_prompt_fail_color:=203}"
     if [[ -n ${_prompt_information} ]]; then
     if [[ ${_last_status} -ne 0 ]]; then
       _prompt_status_color=${_prompt_fail_color:=203}
