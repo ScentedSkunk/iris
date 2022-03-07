@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.139
+# @version: 0.0.140
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -313,11 +313,7 @@ _iris::modules(){
   printf -v _disabled_mods '%s, ' "${_disabled_mods[@]}"
   [[ ${_disabled_mods} == ", " ]] && _disabled_mods=none
   [[ ${_disabled_mods} != "none" ]] && _disabled_mods=${_disabled_mods%,*}
-  printf -- "iris: %s modules\n
--- enabled --
-%s
--- disabled --
-%s\n" "${USER}" "${_enabled_mods}" "${_disabled_mods}"
+  printf -- "enabled: %s\ndisabled: %s\n" "${_enabled_mods}" "${_disabled_mods}"
 }
 
 ################################################################################
