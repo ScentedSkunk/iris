@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: init.sh
-# @version: 0.0.138
+# @version: 0.0.139
 # @project_name: iris
 # @brief: initializer for iris
 #
@@ -210,7 +210,8 @@ _iris::config(){
       printf -- "iris: %s=%s\n" "${_iris_view_config}" "${_iris_view_value}";;
     set)
       if grep -q "${_iris_view_config}" "${_conf_file}"; then
-        sed -i "0,/${_iris_view_config}.*)/{s|${_iris_view_config}.*;|${_iris_view_config}=\"${3}\"|}" "${_conf_file}"
+        sed -i "0,/${_iris_view_config}.*)/{s|${_iris_view_config}.*;|${_iris_view_config}=\"${3}\";|}" "${_conf_file}"
+        _iris::reload
       else
         printf -- "iris[5]: '%s' does not exist\n" "${_iris_view_config}" && return 5
       fi;;
