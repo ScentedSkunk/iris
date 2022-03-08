@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/mschf-dev/iris/compare/v1.1.0...v1.2.0) (2022-03-08)
+
+
+### Features
+
+* **autocomplete:** move to completions folder ([172045c](https://github.com/mschf-dev/iris/commit/172045c52d81048e7c4ddb88efce9531c3b4b724))
+* **installers:** added auto installer and git installer ([72e9565](https://github.com/mschf-dev/iris/commit/72e9565775652f690daea5bd9870afd61af66305))
+* **modules:** added screen module ([a13704a](https://github.com/mschf-dev/iris/commit/a13704af775a520d210e7d4dc2499ee1562eb8d5))
+* stylage, readmes, fixes, screen module ([655dd0b](https://github.com/mschf-dev/iris/commit/655dd0b792c58b9ae26cab905a794bfc22724818))
+
+
+### Bug Fixes
+
+* **cli:** '--config' adds required `;` ([c473fce](https://github.com/mschf-dev/iris/commit/c473fcedd5da3317f1034cacb11a5c05524a0767))
+* **installer:** fix install location ([64a71e0](https://github.com/mschf-dev/iris/commit/64a71e08c46dffd76ed5089cbe52adf20428beb0))
+* **modules:** correct metadata on ssh module ([c24bdb0](https://github.com/mschf-dev/iris/commit/c24bdb0ec36b2356a9235376d7547c8e067b83d2))
+* prevent variable manipulation on fixed path ([05082d3](https://github.com/mschf-dev/iris/commit/05082d3bc830e04d2f2c36351fd4fb98e5db7c7a))
+* **prompt:** move error responses above modules ([e3d509b](https://github.com/mschf-dev/iris/commit/e3d509bbb3ab3a1e513407a88eabb3dd172996ea))
+
 ## [1.1.0](https://github.com/mschf-dev/iris/compare/v1.0.0...v1.1.0) (2022-03-04)
 
 
