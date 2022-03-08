@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: install.sh
-# @version: 0.0.91
+# @version: 0.0.92
 # @project_name: iris
 # @brief: installer for iris
 #
@@ -36,7 +36,7 @@ install::check(){
 ################################################################################
 install::iris(){
   git clone -q https://github.com/mschf-dev/iris "/opt/iris" || { printf -- "iris[5]: unable to clone repo\n" && return 5; }
-  declare _src_path; _src_path="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"; _src_path="${_src_path%/*}"
+  declare _src_path; _src_path="/opt/iris/src"
   while read -r user; do
     if [[ $(echo "${user}" | cut -f7 -d:) == "/bin/bash" ]]; then
       declare username homedir group
