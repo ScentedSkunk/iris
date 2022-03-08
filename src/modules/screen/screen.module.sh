@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: screen.module.sh
-# @version: 0.0.1
+# @version: 0.0.2
 # @project_name: iris
 # @brief: screen module for iris
 #
@@ -19,9 +19,9 @@
 # @noargs
 ################################################################################
 _screen::pre(){
-  if [[ ${TERM} == "screen" ]]; then
+  if [[ ${TERM} == "screen"* ]]; then
     if [[ ${_prompt_nerd_font:="false"} == "true" ]]; then
-      _prompt::generate "${_prompt_wrapper:0:1}${_screen_nerd_symbol}${_prompt_wrapper:1:1}|${_screen_module_color}"
+      _prompt::generate "${_screen_nerd_symbol} |${_screen_module_color}"
     else
       _prompt::generate "${_prompt_wrapper:0:1}${_screen_module_symbol}${_prompt_wrapper:1:1}|${_screen_module_color}"
     fi
