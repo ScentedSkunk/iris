@@ -119,7 +119,8 @@ Distributed under the BSD-3-Clause License. See `license` for more information.
 
 ## :writing_hand: Authors
 [@mschf2175](https://github.com/mschf2175) - Idea & Initial work
-See also the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
+
+See the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
 
 <!-- Acknowledgements -->
 ## :mega: Acknowledgements
