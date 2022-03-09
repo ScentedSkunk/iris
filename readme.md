@@ -34,17 +34,12 @@ A minimal, customizable prompt for bash
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#about-iris">about iris</a></li>
-    <li>
-      <a href="#getting-started">getting started</a>
-      <ul>
-        <li><a href="#prerequisites">prerequisites</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">usage</a></li>
-    <li><a href="#contributing">contributing</a></li>
-    <li><a href="#license">license</a></li>
-    <li><a href="#inspired-by">inspired by</a></li>
+    <li><a href="#about-iris">About iris</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -85,7 +80,7 @@ git clone https://github.com/mschf-dev/iris "/opt/iris"
 
 
 <!-- USAGE -->
-## :balloon: Usage 
+## 🎈 Usage 
 - `--config [view|set] [var]`   
   - view or set configuration values in `~/.config/iris/iris.conf`
 - `--defaults`
@@ -108,22 +103,22 @@ git clone https://github.com/mschf-dev/iris "/opt/iris"
   - outputs installed iris version"
 
 <!-- CONTRIBUTING -->
-## :handshake: Contributing
+## 🤝 Contributing
 
 Contributions are what make the world go around. We would love to be able to accept any new contributions, but I have not written the contribution guidelines yet.
 
 <!-- LICENSE -->
-## :page_with_curl:	License
+## 📃 License
 
 Distributed under the BSD-3-Clause License. See `license` for more information.
 
-## :writing_hand: Authors
+## ✍️ Authors
 [@mschf2175](https://github.com/mschf2175) - Idea & Initial work
 
 See the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
 
 <!-- Acknowledgements -->
-## :mega: Acknowledgements
+## 📣 Acknowledgements
 * [starship](https://github.com/starship/starship) - A customizable prompt built in rust.
 * [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Fonts patched with a high number of development related glyphs.
 * [shields](https://github.com/badges/shields) - A service for concise, consistent badges.
