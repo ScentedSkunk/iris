@@ -1,8 +1,8 @@
-# security policy
+# Security Policy
 
-mschf.dev takes the security of all code seriously, this includes all source code repositories managed through GitHub.
+mschf-dev takes the security of all code seriously, this includes all source code repositories managed through GitHub.
 
-## reporting a vulnerability
+## Reporting a Vulnerability
 
 Security vulnerabilities should be reported to us privately to [sec@mschf.dev](mailto:sec@mschf.dev), please do not file public issues on GitHub relating to security vulnerabilities
 
@@ -18,6 +18,6 @@ Please include the requested information listed below to help better understand 
   * Proof of concept or exploit code (if possible)
   * Impact of the issue
 
-## preferred languages
+## Preferred Languages
 
 We prefer all communications to be in English
