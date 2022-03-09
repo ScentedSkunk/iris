@@ -117,7 +117,7 @@ Distributed under the BSD-3-Clause License. See `license` for more information.
 
 See the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
 
-<!-- Acknowledgements -->
+<!-- ACKNOWLEDGEMENTS -->
 ## 📣 Acknowledgements
 * [starship](https://github.com/starship/starship) - A customizable prompt built in rust.
 * [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Fonts patched with a high number of development related glyphs.
