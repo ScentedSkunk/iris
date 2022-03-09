@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.2.1-0](https://github.com/mschf-dev/iris/compare/v1.2.0...v1.2.1-0) (2022-03-09)
+
+
+### Documentation
+
+* **readme:** misc formatting and content changes ([fdcd293](https://github.com/mschf-dev/iris/commit/fdcd293b8230e60ca5d312e75c7c5a2ffb4c1d9e))
+* **readme:** update grammar ([0525440](https://github.com/mschf-dev/iris/commit/05254400083f49505c09f68139d77f43beab5039))
+* **readme:** update ToC ([894935b](https://github.com/mschf-dev/iris/commit/894935b33c65622cbe2ddcfd7e0d8184679a9091))
+
+
+### Styles
+
+* readme comment to uppercase ([4d7984d](https://github.com/mschf-dev/iris/commit/4d7984db465f309ac3547b88f3b3270a389a2095))
+* **security:** Update headers ([ed1fa01](https://github.com/mschf-dev/iris/commit/ed1fa01a8a8b5ca5e201f63118d69f5b3a5b982b))
+* update console input ([4a5f978](https://github.com/mschf-dev/iris/commit/4a5f9787d56d98ec286302aef25d1363d77292f0))
+
 ## [1.2.0](https://github.com/mschf-dev/iris/compare/v1.1.0...v1.2.0) (2022-03-08)
 
 
