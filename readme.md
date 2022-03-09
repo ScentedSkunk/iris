@@ -7,23 +7,22 @@
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/mschf-dev/iris?style=for-the-badge">
     <br />
   </p>
-<!-- HEADER -->
-<br />
-<div align="center">
-<p align="center">
-  <a href="https://github.com/mschf-dev/iris/#gh-light-mode-only">
-    <img src="/docs/img/logo_light.png"/>
-  </a>
-  <a href="https://github.com/mschf-dev/iris/#gh-dark-mode-only">
-    <img src="/docs/img/logo_dark.png"/>
-  </a>
-</p>
-
+  <!-- HEADER -->
+  <br />
+  <div align="center">
+  <p align="center">
+    <a href="https://github.com/mschf-dev/iris/#gh-light-mode-only">
+      <img src="/docs/img/logo_light.png"/>
+    </a>
+    <a href="https://github.com/mschf-dev/iris/#gh-dark-mode-only">
+      <img src="/docs/img/logo_dark.png"/>
+    </a>
+  </p>
 
   <p align="center">
 A minimal, customizable prompt for bash
     <br />
-     <a href="https://github.com/mschf-dev/iris/issues">Report Bug</a>
+    <a href="https://github.com/mschf-dev/iris/issues">Report Bug</a>
     ·
     <a href="https://github.com/mschf-dev/iris/issues">Request Feature</a>
     <br />
@@ -39,6 +38,7 @@ A minimal, customizable prompt for bash
     <li><a href="#usage">Usage</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
+    <li><a href="#authors">Authors</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
@@ -52,8 +52,7 @@ A minimal, customizable prompt for bash
 **Customizable:** Configure settings for each user, one size does not always fit all.
 **Hassle-free:** Easy to install, easy to update (if you so chose!)
 
-
-<!-- INSTALLATION -->
+<!-- GETTING  STARTED -->
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -77,8 +76,6 @@ sudo su -
 git clone https://github.com/mschf-dev/iris "/opt/iris"
 /opt/iris/src/tools/git-install.sh
 ```
-
-
 <!-- USAGE -->
 ## 🎈 Usage 
 - `--config [view|set] [var]`   
