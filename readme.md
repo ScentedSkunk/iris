@@ -49,7 +49,9 @@ A minimal, customizable prompt for bash
 **A minimal, fast, and customizable prompt for BASH 4.0 or greater:**
 
 **Minimal:** No excess bloat, straight and to the point.
+
 **Customizable:** Configure settings for each user, one size does not always fit all.
+
 **Hassle-free:** Easy to install, easy to update (if you so chose!)
 
 <!-- GETTING  STARTED -->
