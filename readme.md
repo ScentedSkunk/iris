@@ -80,7 +80,7 @@ git clone https://github.com/mschf-dev/iris "/opt/iris"
 ```
 <!-- USAGE -->
 ## 🎈 Usage 
-- `--config [view|set] [var]`   
+- `--config [view|set] [var] [value]`   
   - view or set configuration values in `~/.config/iris/iris.conf`
 - `--defaults`
   - resets iris configuration to default
@@ -99,7 +99,7 @@ git clone https://github.com/mschf-dev/iris "/opt/iris"
 - `--upgrade`
   - upgrades iris to latest version
 - `--version`
-  - outputs installed iris version"
+  - outputs installed iris version
 
 <!-- CONTRIBUTING -->
 ## 🤝 Contributing
@@ -124,5 +124,6 @@ See the list of [contributors](https://github.com/mschf-dev/iris/contributors) w
 * [codefactor](https://github.com/codefactor-io) - Automated code review for GitHub.
 * [ohmybash](https://github.com/ohmybash/oh-my-bash) - An open source, community-driven framework for managing your bash configuration.
 * [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - A community-driven framework for managing your zsh configuration.
+* [coderdocs](https://github.com/xriley/CoderDocs-Theme) - A free Bootstrap documentation template made for software developers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
