@@ -12,10 +12,10 @@
   <div align="center">
   <p align="center">
     <a href="https://github.com/mschf-dev/iris/#gh-light-mode-only">
-      <img src="/docs/img/logo_light.png"/>
+      <img src="/img/logo_light.png"/>
     </a>
     <a href="https://github.com/mschf-dev/iris/#gh-dark-mode-only">
-      <img src="/docs/img/logo_dark.png"/>
+      <img src="/img/logo_dark.png"/>
     </a>
   </p>
 
