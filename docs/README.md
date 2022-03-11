@@ -11,11 +11,8 @@
   <br />
   <div align="center">
   <p align="center">
-    <a href="https://github.com/mschf-dev/iris/#gh-light-mode-only">
-      <img src="/img/logo_light.png"/>
-    </a>
-    <a href="https://github.com/mschf-dev/iris/#gh-dark-mode-only">
-      <img src="/img/logo_dark.png"/>
+    <a href="https://github.com/mschf-dev/iris/">
+      <img src="img/logo_light.png"/>
     </a>
   </p>
 
