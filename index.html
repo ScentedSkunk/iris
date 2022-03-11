@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>mschf-dev - iris documentation</title>
+
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Documentation for iris">
+  <meta name="author" content="Jamie Dobbs">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome JS-->
+  <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.2/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="assets/plugins/simplelightbox/simple-lightbox.min.css">
+
+  <!-- Theme CSS -->
+  <link id="theme-style" rel="stylesheet" href="assets/css/theme.css">
+
+</head>
+
+<body class="docs-page">
+  <header class="header fixed-top">
+    <div class="branding docs-branding">
+      <div class="container-fluid position-relative py-2">
+        <div class="docs-logo-wrapper">
+          <button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none"
+            type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2"
+                src="assets/images/logo_light.png" style="height:48px" alt="logo"></a></div>
+        </div>
+        <!--//docs-logo-wrapper-->
+        <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+          <div class="top-search-box d-none d-lg-flex">
+            <form class="search-form">
+              <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+              <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+
+          <ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
+            <li class="list-inline-item"><a href="https://github.com/mschf-dev/iris"><i
+                  class="fab fa-github fa-fw"></i></a></li>
+            <li class="list-inline-item"><a href="https://twitter.com/mschfdev_"><i
+                  class="fab fa-twitter fa-fw"></i></a></li>
+          </ul>
+          <!--//social-list-->
+          <a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/coderdocs-free-bootstrap-5-documentation-template-for-software-projects/"
+            class="btn btn-primary d-none d-lg-flex">Download</a>
+        </div>
+        <!--//docs-top-utilities-->
+      </div>
+      <!--//container-->
+    </div>
+    <!--//branding-->
+  </header>
+  <!--//header-->
+
+
+  <div class="docs-wrapper">
+    <div id="docs-sidebar" class="docs-sidebar">
+      <div class="top-search-box d-lg-none p-3">
+        <form class="search-form">
+          <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
+          <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+      <nav id="docs-nav" class="docs-nav navbar">
+        <ul class="section-items list-unstyled nav flex-column pb-3">
+          <li class="nav-item section-title"><a class="nav-link scrollto active" href="#section-1"><span
+                class="theme-icon-holder me-2"><i class="fas fa-map-signs"></i></span>Introduction</a></li>
+          <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-2"><span
+                class="theme-icon-holder me-2"><i class="fas fa-arrow-down"></i></span>Installation</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Prerequisites</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">Installation via script</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">Installation via git</a></li>
+          <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span
+                class="theme-icon-holder me-2"><i class="fas fa-box"></i></span>CLI Usage</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Commands</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Configuration variables</a></li>
+          <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-4"><span
+                class="theme-icon-holder me-2"><i class="fas fa-cogs"></i></span>License</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-4-1">BSD-3-Clause</a></li>
+          <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-5"><span
+                class="theme-icon-holder me-2"><i class="fas fa-tools"></i></span>Acknowldegements</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-5-1">Authors</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-5-2">Contributors</a></li>
+          <li class="nav-item"><a class="nav-link scrollto" href="#item-5-3">Further Acknowldgements</a></li>
+        </ul>
+
+      </nav>
+      <!--//docs-nav-->
+    </div>
+    <!--//docs-sidebar-->
+    <div class="docs-content">
+      <div class="container">
+        <article class="docs-article" id="section-1">
+          <header class="docs-header">
+            <h1 class="docs-heading">Introduction <span class="docs-time">Last updated: 2022-03-11 (v1.2.1)</span></h1>
+            <section class="docs-intro">
+              <p><strong>A minimal, fast, and customizable prompt for BASH 4.0 or greater:</strong><br><br>
+                <strong>Minimal:</strong> No excess bloat, straight and to the point.<br>
+                <strong>Customizable:</strong> Configure settings for each user, one size does not always fit all.<br>
+                <strong>Hassle-free:</strong> Easy to install, easy to update (if you so chose!)<br>
+              </p>
+            </section>
+            <!--//docs-intro-->
+          </header>
+        </article>
+
+
+        <article class="docs-article" id="section-2">
+          <header class="docs-header">
+            <h1 class="docs-heading">Installation</h1>
+            <section class="docs-intro">
+              <p>iris is able to be installed via a default install script, or through a git clone where you can
+                choose it's working directory. Both options will require some prerequiste packages:</p>
+            </section>
+            <!--//docs-intro-->
+          </header>
+          <section class="docs-section" id="item-2-1">
+            <h2 class="section-heading">Prerequisites</h2>
+            <ul>
+              <li><strong class="me-1">git</strong></li>
+              <li><strong class="me-1">sudo</strong></li>
+              <li><strong class="me-1">wget</strong> (for script installation)</li>
+            </ul>
+            <h2 class="section-heading">Optional</h2>
+            <p>
+            <ul>
+              <li><strong class="me-1"><a href="https://www.nerdfonts.com" target="_blank">Nerd Fonts</a></strong> -
+                Simply enable in
+                your terminal
+                (We use Hack Bold).
+              </li>
+            </ul>
+            </p>
+          </section>
+          <!--//section-->
+
+          <section class="docs-section" id="item-2-2">
+            <h2 class="section-heading">Installation via script</h2>
+            <div class="docs-code-block">
+              <pre class="shadow-lg rounded"><code class="bash">sudo su -
+bash <(wget -qO - https://mschf.dev/iris)
+</code></pre>
+            </div>
+            <p>This will install iris to <strong>/opt/iris</strong></p>
+          </section>
+          <!--//section-->
+
+          <section class="docs-section" id="item-2-3">
+            <h2 class="section-heading">Installation via git</h2>
+            <div class="docs-code-block">
+              <pre class="shadow-lg rounded"><code class="bash">sudo su -
+git clone https://github.com/mschf-dev/iris "/opt/iris"
+/opt/iris/src/tools/git-install.sh
+</code></pre>
+              <p>You can change the installation dir by cloning to a different directory. You will have to update the
+                path of the git-install.sh file and run it to complete installation.</p>
+          </section>
+          <!--//section-->
+        </article>
+        <!--//docs-article-->
+
+
+        <article class="docs-article" id="section-3">
+          <header class="docs-header">
+            <h1 class="docs-heading">CLI Usage</h1>
+            <section class="docs-intro">
+              iris has several cli options to help you manage the prompt.
+            </section>
+            <!--//docs-intro-->
+          </header>
+          <section class="docs-section" id="item-3-1">
+            <h2 class="section-heading">Commands</h2>
+            <code>--config [view|set] [var] [value]</code>: view or set configuration values in
+            <strong>~/.config/iris/iris.conf</strong><br>
+            <code>--defaults</code>: resets iris configuration to default values<br>
+            <code>--disable-module [module]</code>: disables the provided module<br>
+            <code>--enable-module [module]</code>: enables the provided module<br>
+            <code>--help</code>: displays iris help message<br>
+            <code>--modules</code>: lists all installed/available modules<br>
+            <code>--reload</code>: reloads iris configurations<br>
+            <code>--uninstall</code>: uninstalls iris<br>
+            <code>--upgrade</code>: upgrades iris to latest version<br>
+            <code>--version</code>: outputs installed iris version<br><br>
+
+            <p>All configuration variables are documented below.</p>
+          </section>
+          <section class="docs-section" id="item-3-2">
+            <h2 class="section-heading">Configuration variables</h2>
+            <ul>
+              <li><strong class="me-1">prompt_input_newline</strong> - console input on new line: (true|false)</li>
+              <li><strong class="me-1">prompt_nerd_font</strong> - iris outputs nerd font icons: (true|false)</li>
+              <li><strong class="me-1">prompt_input_symbol</strong> - console input symbol</li>
+              <li><strong class="me-1">prompt_nerd_symbol</strong> - console input symbol for nerd font</li>
+              <li><strong class="me-1">prompt_username</strong> - shows current user on prompt: (true|false)</li>
+              <li><strong class="me-1">prompt_hostname</strong> - shows hostname on prompt: (ssh|all|none)</li>
+              <li><strong class="me-1">prompt_dir</strong> - shows current dir on prompt: (true|false)</li>
+              <li><strong class="me-1">prompt_display_error</strong> - displays error codes on prompt: (true|false)</li>
+              <li><strong class="me-1">prompt_seperator</strong> - seperator between prompt informations</li>
+              <li><strong class="me-1">prompt_wrapper</strong> - wrapper for prompt information: 2 chars max [LR]</li>
+              <li><strong class="me-1">prompt_success_color</strong> - changes input symbol to green if previous
+                command returns 0: (256 color)</li>
+              <li><strong class="me-1">prompt_fail_color</strong> - changes input symbol to red if previous
+                command does not return 0: (256 color)</li>
+              <li><strong class="me-1">prompt_user_color</strong> -sets the user color in prompt: (256 color)</li>
+              <li><strong class="me-1">prompt_sudo_color</strong> -sets the sudo color in prompt: (256 color)</li>
+              <li><strong class="me-1">prompt_info_color</strong> -sets the info color in prompt: (256 color)</li>
+              <li><strong class="me-1">prompt_input_color</strong> -sets the input color in prompt: (256 color)</li>
+            </ul>
+          </section>
+          <!--//section-->
+        </article>
+
+        <article class="docs-article" id="section-4">
+          <header class="docs-header">
+            <h1 class="docs-heading">License</h1>
+            <section class="docs-intro">
+              Distributed under the BSD-3-Clause License.
+            </section>
+            <!--//docs-intro-->
+            <section class="docs-section" id="item-4-1">
+              <h2 class="section-heading">BSD-3-Clause</h2>
+
+              Copyright (c) 2022, Jamie Dobbs<br>
+              All rights reserved.<br><br>
+
+              Redistribution and use in source and binary forms, with or without
+              modification, are permitted provided that the following conditions are met:<br><br>
+
+              * Redistributions of source code must retain the above copyright notice, this
+              list of conditions and the following disclaimer.<br><br>
+
+              * Redistributions in binary form must reproduce the above copyright notice,
+              this list of conditions and the following disclaimer in the documentation
+              and/or other materials provided with the distribution.<br><br>
+
+              * Neither the name of iris nor the names of its
+              contributors may be used to endorse or promote products derived from
+              this software without specific prior written permission.<br><br>
+
+              THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+              AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+              IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+              DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+              FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+              DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+              SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+              CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+              OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+              OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+              </p>
+            </section>
+          </header>
+        </article>
+        <!--//docs-article-->
+
+        <article class="docs-article" id="section-5">
+          <header class="docs-header">
+            <h1 class="docs-heading">Acknowldegements</h1>
+            <section class="docs-intro">
+
+            </section>
+            <!--//docs-intro-->
+          </header>
+          <section class="docs-section" id="item-5-1">
+            <h2 class="section-heading">Authors</h2>
+            <li><strong class="me-1"><a href="https://github.com/mschf2175" target="_blank">mschf2175</a></strong> -
+              Idea & Initial work</li>
+          </section>
+          <!--//section-->
+
+          <section class="docs-section" id="item-5-2">
+            <h2 class="section-heading">Contributors</h2>
+            <p>There have been no contributors at the time of writing this documentation.</p>
+          </section>
+          <!--//section-->
+
+          <section class="docs-section" id="item-5-3">
+            <h2 class="section-heading">Further Acknowldegements</h2>
+            <li><strong class="me-1"><a href="https://github.com/starship/starship"
+                  target="_blank">starship</a></strong> -
+              A customizable prompt built in rust</li>
+            <li><strong class="me-1"><a href="https://github.com/ryanoasis/nerd-fonts"
+                  target="_blank">nerd-fonts</a></strong> -
+              Fonts patched with a high number of development related glyphs</li>
+            <li><strong class="me-1"><a href="https://github.com/badges/shields" target="_blank">shields</a></strong>
+              -
+              A service for concise, consistent badges</li>
+            <li><strong class="me-1"><a href="https://github.com/codefactor-io" target="_blank">codefactor</a></strong>
+              -
+              Automated code review for GitHub</li>
+            <li><strong class="me-1"><a href="https://github.com/ohmybash/oh-my-bash"
+                  target="_blank">ohmybash</a></strong> -
+              An open source, community-driven framework for managing your bash configuration</li>
+            <li><strong class="me-1"><a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank">ohmyzsh</a></strong>
+              -
+              A community-driven framework for managing your zsh configuration</li>
+            <li><strong class="me-1"><a href="https://github.com/xriley/CoderDocs-Theme"
+                  target="_blank">coderdocs</a></strong> -
+              A free Bootstrap documentation template made for software developers</li>
+          </section>
+          <!--//section-->
+        </article>
+        <!--//docs-article-->
+
+        <footer class="footer">
+          <div class="container text-center py-5">
+            <small class="copyright">Content Copyright &copy; <a href="https://mschf.dev/"
+                target="_blank">mschf-dev</a></small> <br>
+            <small class="copyright">Template Copyright &copy; <a href="https://themes.3rdwavemedia.com/"
+                target="_blank">3rd Wave Media</a></small>
+            <ul class="social-list list-unstyled pt-4 mb-0">
+              <li class="list-inline-item"><a href="https://github.com/mschf-dev/iris"><i
+                    class="fab fa-github fa-fw"></i></a></li>
+              <li class="list-inline-item"><a href="https://twitter.com/mschfdev_"><i
+                    class="fab fa-twitter fa-fw"></i></a></li>
+            </ul>
+            <!--//social-list-->
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <!--//docs-wrapper-->
+
+
+  <!-- Javascript -->
+  <script src="assets/plugins/popper.min.js"></script>
+  <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+
+  <!-- Page Specific JS -->
+  <script src="assets/plugins/smoothscroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+  <script src="assets/js/highlight-custom.js"></script>
+  <script src="assets/plugins/simplelightbox/simple-lightbox.min.js"></script>
+  <script src="assets/plugins/gumshoe/gumshoe.polyfills.min.js"></script>
+  <script src="assets/js/docs.js"></script>
+
+</body>
+
+</html>
