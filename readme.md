@@ -26,6 +26,8 @@ A minimal, customizable prompt for bash
     ·
     <a href="https://github.com/mschf-dev/iris/issues">Request Feature</a>
     <br />
+    <a href="https://iris.mschf.dev" target="_blank"><strong>Explore the Docs</strong></a>
+    <br />
     
   </p>
 </div>
