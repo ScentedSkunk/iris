@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+case $- in
+  *i*) ;;
+    *) return;;
+esac
 [[ -z "${debian_chroot:-}" && -r /etc/debian_chroot ]] && debian_chroot=$(cat /etc/debian_chroot)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
