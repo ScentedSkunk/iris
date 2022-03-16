@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.2.2](https://github.com/mschf-dev/iris/compare/v1.2.1...v1.2.2) (2022-03-16)
+
+
+### Bug Fixes
+
+* detect for interactive sessions ([52f4993](https://github.com/mschf-dev/iris/commit/52f499339445aa243bd1d1a84dba59c687cc680d))
+* **pages:** update logo ([a1b4bff](https://github.com/mschf-dev/iris/commit/a1b4bff0f4c2d51f4eea297f8062f77f45bdcf48))
+
 ### [1.2.1](https://github.com/mschf-dev/iris/compare/v1.2.0...v1.2.1) (2022-03-09)
 
 
