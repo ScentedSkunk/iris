@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: screen.module.sh
-# @version: 0.0.3
+# @version: 0.0.4
 # @project_name: iris
 # @brief: screen module for iris
 #
@@ -11,7 +11,6 @@
 # @license: BSD-3 Clause (Included in LICENSE)
 # Copyright (C) 2021-2022, Jamie Dobbs
 # All rights reserved.
-# shellcheck disable=2154
 ################################################################################
 
 ################################################################################

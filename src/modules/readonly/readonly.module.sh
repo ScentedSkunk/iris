@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: readonly.module.sh
-# @version: 0.0.13
+# @version: 0.0.14
 # @project_name: iris
 # @brief: readonly module for iris
 #
@@ -11,7 +11,6 @@
 # @license: BSD-3 Clause (Included in LICENSE)
 # Copyright (C) 2021-2022, Jamie Dobbs
 # All rights reserved.
-# shellcheck disable=2154
 ################################################################################
 
 ################################################################################
