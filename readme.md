@@ -1,3 +1,4 @@
+<!-- trunk-ignore(markdownlint/MD041) -->
 <div id="top"></div>
   <p align="center">
     <img alt="CodeFactor Grade" src="https://img.shields.io/codefactor/grade/github/mschf-dev/iris?style=for-the-badge">
@@ -46,6 +47,7 @@ A minimal, customizable prompt for bash
 </details>
 
 <!-- ABOUT -->
+
 ## 🧐 About iris
 
 **A minimal, fast, and customizable prompt for BASH 4.0 or greater:**
@@ -57,38 +59,47 @@ A minimal, customizable prompt for bash
 **Hassle-free:** Easy to install, easy to update (if you so chose!)
 
 <!-- GETTING  STARTED -->
+
 ## 🚀 Getting Started
 
 ### Prerequisites
-  - sudo
-  - git
-  - wget (script install)
-  
+
+- sudo
+- git
+- wget (script install)
+
 ### Optional
- - [Nerd Fonts](https://www.nerdfonts.com/) - Simply enable in your terminal (We use [Hack Bold](https://www.nerdfonts.com/font-downloads))
+
+- [Nerd Fonts](https://www.nerdfonts.com/) - Simply enable in your terminal (We use [Hack Bold](https://www.nerdfonts.com/font-downloads))
 
 ### Installation
 
-#### Install via script:
+#### Install via script
+
 ```bash
 sudo su -
 bash <(wget -qO - https://mschf.dev/iris)
 ```
-#### Install via git:
+
+#### Install via git
+
 ```bash
 sudo su -
 git clone https://github.com/mschf-dev/iris "/opt/iris"
 /opt/iris/src/tools/git-install.sh
 ```
+
 <!-- USAGE -->
-## 🎈 Usage 
-- `--config [view|set] [var] [value]`   
+
+## 🎈 Usage
+
+- `--config [view|set] [var] [value]`
   - view or set configuration values in `~/.config/iris/iris.conf`
 - `--defaults`
   - resets iris configuration to default
 - `--disable-module [module]`
   - disables the provided module
-- `--enable-module  [module]`
+- `--enable-module [module]`
   - enables the provided module
 - `--help`
   - displays iris help message
@@ -104,28 +115,33 @@ git clone https://github.com/mschf-dev/iris "/opt/iris"
   - outputs installed iris version
 
 <!-- CONTRIBUTING -->
+
 ## 🤝 Contributing
 
 Contributions are what make the world go around. We would love to be able to accept any new contributions, but I have not written the contribution guidelines yet.
 
 <!-- LICENSE -->
+
 ## 📃 License
 
 Distributed under the BSD-3-Clause License. See `license` for more information.
 
 ## ✍️ Authors
+
 [@mschf2175](https://github.com/mschf2175) - Idea & Initial work
 
 See the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
 
 <!-- ACKNOWLEDGEMENTS -->
+
 ## 📣 Acknowledgements
-* [starship](https://github.com/starship/starship) - A customizable prompt built in rust.
-* [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Fonts patched with a high number of development related glyphs.
-* [shields](https://github.com/badges/shields) - A service for concise, consistent badges.
-* [codefactor](https://github.com/codefactor-io) - Automated code review for GitHub.
-* [ohmybash](https://github.com/ohmybash/oh-my-bash) - An open source, community-driven framework for managing your bash configuration.
-* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - A community-driven framework for managing your zsh configuration.
-* [coderdocs](https://github.com/xriley/CoderDocs-Theme) - A free Bootstrap documentation template made for software developers.
+
+- [starship](https://github.com/starship/starship) - A customizable prompt built in rust.
+- [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) - Fonts patched with a high number of development related glyphs.
+- [shields](https://github.com/badges/shields) - A service for concise, consistent badges.
+- [codefactor](https://github.com/codefactor-io) - Automated code review for GitHub.
+- [ohmybash](https://github.com/ohmybash/oh-my-bash) - An open source, community-driven framework for managing your bash configuration.
+- [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) - A community-driven framework for managing your zsh configuration.
+- [coderdocs](https://github.com/xriley/CoderDocs-Theme) - A free Bootstrap documentation template made for software developers.
 
 <p align="right">(<a href="#top">back to top</a>)</p>

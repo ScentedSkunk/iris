@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: shopt.module.sh
-# @version: 0.0.10
+# @version: 0.0.11
 # @project_name: iris
 # @brief: shopt module for iris
 #
@@ -17,77 +17,77 @@
 # @description: set bash settings
 ################################################################################
 if [[ ${_bash_histappend:-"true"} == "true" ]]; then
-  shopt -s histappend
+	shopt -s histappend
 else
-  shopt -u histappend
+	shopt -u histappend
 fi
 if [[ ${_bash_cmdhist:-"true"} == "true" ]]; then
-  shopt -s cmdhist
+	shopt -s cmdhist
 else
-  shopt -u cmdhist
+	shopt -u cmdhist
 fi
 if [[ ${_bash_histreedit:-"true"} == "true" ]]; then
-  shopt -s histreedit
+	shopt -s histreedit
 else
-  shopt -u histreedit
+	shopt -u histreedit
 fi
 if [[ ${_bash_histverify:-"true"} == "true" ]]; then
-  shopt -s histverify
+	shopt -s histverify
 else
-  shopt -u histverify
+	shopt -u histverify
 fi
 if [[ ${_bash_icomments:-"true"} == "true" ]]; then
-  shopt -s interactive_comments
+	shopt -s interactive_comments
 else
-  shopt -u interactive_comments
+	shopt -u interactive_comments
 fi
 if [[ ${_bash_checkwin:-"true"} == "true" ]]; then
-  shopt -s checkwinsize
+	shopt -s checkwinsize
 else
-  shopt -u checkwinsize
+	shopt -u checkwinsize
 fi
 if [[ ${_bash_globstar:-"true"} == "true" ]]; then
-  shopt -s globstar
+	shopt -s globstar
 else
-  shopt -u globstar
+	shopt -u globstar
 fi
 if [[ ${_bash_nocaseglob:-"true"} == "true" ]]; then
-  shopt -s nocaseglob
+	shopt -s nocaseglob
 else
-  shopt -u nocaseglob
+	shopt -u nocaseglob
 fi
 if [[ ${_bash_autocd:-"true"} == "true" ]]; then
-  shopt -s autocd
+	shopt -s autocd
 else
-  shopt -u autocd
+	shopt -u autocd
 fi
 if [[ ${_bash_dirspell:-"true"} == "true" ]]; then
-  shopt -s dirspell
+	shopt -s dirspell
 else
-  shopt -u dirspell
+	shopt -u dirspell
 fi
 if [[ ${_bash_cdspell:-"true"} == "true" ]]; then
-  shopt -s cdspell
+	shopt -s cdspell
 else
-  shopt -u cdspell
+	shopt -u cdspell
 fi
-if [[ "$-" =~ "i" ]]; then
-  if [[ ${_bash_magic_space:-"false"} == "true" ]]; then
-    bind Space:magic-space
-  fi
-  if [[ ${_bash_ignore_case:-"true"} == "true" ]]; then
-    bind "set completion-ignore-case on"
-  else
-    bind "set completion-ignore-case off"  
-  fi
-  if [[ ${_bash_show_all_ambig:-"true"} == "true" ]]; then
-    bind "set show-all-if-ambiguous on"
-  else
-    bind "set show-all-if-ambiguous off"  
-  fi
-  if [[ ${_bash_mark_symlink_dir:-"true"} == "true" ]]; then
-    bind "set mark-symlinked-directories on"
-  else
-    bind "set mark-symlinked-directories off"
-  fi
+if [[ $- =~ "i" ]]; then
+	if [[ ${_bash_magic_space:-"false"} == "true" ]]; then
+		bind Space:magic-space
+	fi
+	if [[ ${_bash_ignore_case:-"true"} == "true" ]]; then
+		bind "set completion-ignore-case on"
+	else
+		bind "set completion-ignore-case off"
+	fi
+	if [[ ${_bash_show_all_ambig:-"true"} == "true" ]]; then
+		bind "set show-all-if-ambiguous on"
+	else
+		bind "set show-all-if-ambiguous off"
+	fi
+	if [[ ${_bash_mark_symlink_dir:-"true"} == "true" ]]; then
+		bind "set mark-symlinked-directories on"
+	else
+		bind "set mark-symlinked-directories off"
+	fi
 fi

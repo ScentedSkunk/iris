@@ -12,11 +12,11 @@ We will endeavour to keep you informed of the progress being made towards a fix
 
 Please include the requested information listed below to help better understand the nature and scope of the possible issue:
 
-  * Type of issue (e.g. sql injection, XSS, privilege escalation)
-  * Full paths of the files related to the issue
-  * Step by step instructions to reproduce the issue
-  * Proof of concept or exploit code (if possible)
-  * Impact of the issue
+- Type of issue (e.g. sql injection, XSS, privilege escalation)
+- Full paths of the files related to the issue
+- Step by step instructions to reproduce the issue
+- Proof of concept or exploit code (if possible)
+- Impact of the issue
 
 ## Preferred Languages
 

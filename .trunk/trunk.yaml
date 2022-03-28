@@ -1,0 +1,14 @@
+version: 0.1
+cli:
+  version: 0.8.1-beta
+lint:
+  enabled:
+    - gitleaks@7.6.1
+    - markdownlint@0.29.0
+    - prettier@2.4.1
+    - shellcheck@0.7.2
+    - shfmt@3.4.0
+  ignore:
+    - linters: [ALL]
+      paths:
+        - changelog.md

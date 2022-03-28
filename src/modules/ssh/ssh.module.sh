@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: ssh.module.sh
-# @version: 0.0.8
+# @version: 0.0.9
 # @project_name: iris
 # @brief: ssh module for iris
 #
@@ -18,12 +18,12 @@
 # @description: generates ssh responses
 # @noargs
 ################################################################################
-_ssh::pre(){
-  if [[ -n "${SSH_CLIENT}" ]]; then
-    if [[ ${_prompt_nerd_font:="false"} == "true" ]]; then
-      _prompt::generate "${_ssh_nerd_symbol}|${_ssh_module_color}"
-    else
-      _prompt::generate "${_prompt_wrapper:0:1}${_ssh_module_symbol}${_prompt_wrapper:1:1}|${_ssh_module_color}"
-    fi
-  fi
+_ssh::pre() {
+	if [[ -n ${SSH_CLIENT} ]]; then
+		if [[ ${_prompt_nerd_font:="false"} == "true" ]]; then
+			_prompt::generate "${_ssh_nerd_symbol}|${_ssh_module_color}"
+		else
+			_prompt::generate "${_prompt_wrapper:0:1}${_ssh_module_symbol}${_prompt_wrapper:1:1}|${_ssh_module_color}"
+		fi
+	fi
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: iris.autocomplete.sh
-# @version: 0.0.2
+# @version: 0.0.3
 # @project_name: iris
 # @brief: autocomplete module for iris
 #
@@ -17,19 +17,22 @@
 # @description: autocomplete commands for iris
 ################################################################################
 _iris::autocomplete() {
-  declare current="${COMP_WORDS[COMP_CWORD]}"
-  declare previous="${COMP_WORDS[COMP_CWORD-1]}"
-  declare -ga COMPREPLY=()
-  declare -a commands=( "--config" "--default" "--disable-module" "--enable-module" "--help" "--modules" "--reload" "--uninstall" "--upgrade" "--version" )
-  case "${previous}" in
-    iris)
-      mapfile -t COMPREPLY < <(compgen -W "${commands[*]}" -- "${current}")
-      return 0;;
-    --config)
-      declare -a responses=( "view" "set" )
-      mapfile -t COMPREPLY < <(compgen -W "${responses[*]}" -- "${current}")
-      return 0;;
-    esac
+	declare current="${COMP_WORDS[COMP_CWORD]}"
+	declare previous="${COMP_WORDS[COMP_CWORD - 1]}"
+	declare -ga COMPREPLY=()
+	declare -a commands=("--config" "--default" "--disable-module" "--enable-module" "--help" "--modules" "--reload" "--uninstall" "--upgrade" "--version")
+	case "${previous}" in
+	iris)
+		mapfile -t COMPREPLY < <(compgen -W "${commands[*]}" -- "${current}")
+		return 0
+		;;
+	--config)
+		declare -a responses=("view" "set")
+		mapfile -t COMPREPLY < <(compgen -W "${responses[*]}" -- "${current}")
+		return 0
+		;;
+	*) ;;
+	esac
 }
 
 ################################################################################

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 # @file_name: readonly.module.sh
-# @version: 0.0.12
+# @version: 0.0.13
 # @project_name: iris
 # @brief: readonly module for iris
 #
@@ -18,12 +18,12 @@
 # @description: generates readonly responses
 # @noargs
 ################################################################################
-_readonly::post(){
-  if [[ ! -w "$(pwd)" ]]; then
-    if [[ ${_prompt_nerd_font:="true"} == "true" ]]; then
-      _prompt::generate "${_prompt_wrapper:0:1}${_readonly_nerd_symbol}${_prompt_wrapper:1:1}|${_readonly_module_color}"
-    else
-      _prompt::generate "${_prompt_wrapper:0:1}${_readonly_module_symbol}${_prompt_wrapper:1:1}|${_readonly_module_color}"
-    fi
-  fi
+_readonly::post() {
+	if [[ ! -w "$(pwd)" ]]; then
+		if [[ ${_prompt_nerd_font:="true"} == "true" ]]; then
+			_prompt::generate "${_prompt_wrapper:0:1}${_readonly_nerd_symbol}${_prompt_wrapper:1:1}|${_readonly_module_color}"
+		else
+			_prompt::generate "${_prompt_wrapper:0:1}${_readonly_module_symbol}${_prompt_wrapper:1:1}|${_readonly_module_color}"
+		fi
+	fi
 }
