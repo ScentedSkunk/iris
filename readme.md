@@ -74,18 +74,11 @@ A minimal, customizable prompt for bash
 
 ### Installation
 
-#### Install via script
-
-```bash
-sudo su -
-bash <(wget -qO - https://mschf.dev/iris)
-```
-
 #### Install via git
 
 ```bash
 sudo su -
-git clone https://github.com/mschf-dev/iris "/opt/iris"
+git clone https://github.com/awildamnesiac/iris "/opt/iris"
 /opt/iris/src/tools/git-install.sh
 ```
 
@@ -128,9 +121,9 @@ Distributed under the BSD-3-Clause License. See `license` for more information.
 
 ## ✍️ Authors
 
-[@mschf2175](https://github.com/mschf2175) - Idea & Initial work
+[@awildamnesiac](https://github.com/awildamnesiac) - Idea & Initial work
 
-See the list of [contributors](https://github.com/mschf-dev/iris/contributors) who participated in this project.
+See the list of [contributors](https://github.com/awildamnesiac/iris/contributors) who participated in this project.
 
 <!-- ACKNOWLEDGEMENTS -->
 

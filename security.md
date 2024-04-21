@@ -4,7 +4,7 @@ mschf-dev takes the security of all code seriously, this includes all source cod
 
 ## Reporting a Vulnerability
 
-Security vulnerabilities should be reported to us privately to [sec@mschf.dev](mailto:sec@mschf.dev), please do not file public issues on GitHub relating to security vulnerabilities
+Security vulnerabilities should be reported to us privately to [awildamnesiac@protonmail.ch](awildamnesiac@protonmail.ch), please do not file public issues on GitHub relating to security vulnerabilities
 
 Your report will be acknowledged within 5 days, and you will receive a more detailed response outlining the next steps in handling your submission
 

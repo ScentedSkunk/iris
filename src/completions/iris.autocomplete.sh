@@ -5,11 +5,11 @@
 # @project_name: iris
 # @brief: autocomplete module for iris
 #
-# @author: Jamie Dobbs (mschf)
-# @author_contact: jamie.dobbs@mschf.dev
+# @author: Jamie Dobbs (awildamnesiac)
+# @author_contact: awildamnesiac@protonmail.ch
 #
 # @license: BSD-3 Clause (Included in LICENSE)
-# Copyright (C) 2021-2022, Jamie Dobbs
+# Copyright (C) 2021-2024, Jamie Dobbs
 # All rights reserved.
 ################################################################################
 
